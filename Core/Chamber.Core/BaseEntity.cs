@@ -1,12 +1,8 @@
 ﻿namespace Chamber.Core;
 
 [Serializable]
-public class BaseEntity
+public class BaseEntity(long id)
 {
-    public readonly DateTime Creation;
-
-    public BaseEntity()
-    {
-        Creation = DateTime.Now;
-    }
+    public readonly long Id = id;
+    public readonly DateTime Creation = DateTime.Now;
 }
