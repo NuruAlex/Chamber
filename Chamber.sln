@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chamber.Core", "Chamber.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chamber.Collections", "Chamber.Collections\Chamber.Collections.csproj", "{6C2EB16E-4287-4A3C-BACD-C29F23D91176}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chamber.Serialiation", "Chamber.Serialiation\Chamber.Serialiation.csproj", "{91ED8D86-81FC-4EEC-ACD0-2883448CE211}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chamber.Serialization", "Chamber.Serialiation\Chamber.Serialization.csproj", "{91ED8D86-81FC-4EEC-ACD0-2883448CE211}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

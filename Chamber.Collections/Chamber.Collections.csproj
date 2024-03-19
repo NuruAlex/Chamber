@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chamber.Core\Chamber.Core.csproj" />
-    <ProjectReference Include="..\Chamber.Serialiation\Chamber.Serialiation.csproj" />
+    <ProjectReference Include="..\Chamber.Serialiation\Chamber.Serialization.csproj" />
   </ItemGroup>
 
 </Project>
