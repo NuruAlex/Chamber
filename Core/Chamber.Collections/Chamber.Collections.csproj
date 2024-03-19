@@ -7,4 +7,9 @@
     <LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chamber.Core\Chamber.Core.csproj" />
+    <ProjectReference Include="..\Chamber.Serialization\Chamber.Serialization.csproj" />
+  </ItemGroup>
+
 </Project>
