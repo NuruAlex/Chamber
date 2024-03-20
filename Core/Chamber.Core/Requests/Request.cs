@@ -3,7 +3,7 @@
 namespace Chamber.Core.Requests;
 
 [Serializable]
-public abstract class Request(long id) : BaseEntity(id)
+public abstract class Request(long id, Client client) : BaseEntity(id)
 {
-    public Client Client { get; set; }
+    public readonly Client Client = client;
 }

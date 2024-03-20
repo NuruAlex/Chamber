@@ -1,7 +1,9 @@
-﻿namespace Chamber.Core.Requests;
+﻿using Chamber.Core.Users;
+
+namespace Chamber.Core.Requests;
 
 [Serializable]
-public class BotRequest(long id) : Request(id)
+public class BotRequest(long id, Client client, string problemType) : Request(id, client)
 {
-    public string ProblemType { get; set; }
+    public string ProblemType = problemType;
 }
