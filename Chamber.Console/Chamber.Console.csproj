@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Events" Version="1.0.0.1" />
-    <PackageReference Include="Messages.Core" Version="1.0.0.1" />
+    <PackageReference Include="Messages.Core" Version="1.0.0.2" />
     <PackageReference Include="Messages.Handling" Version="1.0.0.1" />
     <PackageReference Include="Messages.Senders" Version="1.0.0.3" />
   </ItemGroup>
