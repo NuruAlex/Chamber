@@ -1,6 +1,7 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Users;
 using Chamber.Recievers.Args;
+using Chamber.Recievers.CallBack;
 using Events;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
@@ -34,9 +35,9 @@ public class ContactReciever
         await Sender.SendMessage(new TextMessage(chat, "Выбрите тип проблемы")
         {
             Markup = new InlineMarkup(
-                new InlineButton("Не типовая", "1"), new InlineRow(),
-                new InlineButton("Замена бланка", "2"), new InlineRow(),
-                new InlineButton("Рец не готов", "3")
+                new InlineButton("Не типовая", new CallBackPacket("Нет типовая", CallBackCode.GetProblemType).Pack()), new InlineRow(),
+                new InlineButton("Замена бланка", new CallBackPacket("Замена бланка", CallBackCode.GetProblemType).Pack()), new InlineRow(),
+                new InlineButton("Рец не готов", new CallBackPacket("Рец не готов", CallBackCode.GetProblemType).Pack())
                 )
         });
     }
