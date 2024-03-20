@@ -1,4 +1,4 @@
-﻿namespace Chamber.Serialiation.InnerRetirver;
+﻿namespace Chamber.Serialization.InnerRetirver;
 
 public interface IRetriever
 {

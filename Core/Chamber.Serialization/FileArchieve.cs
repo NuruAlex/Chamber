@@ -1,9 +1,20 @@
-﻿namespace Chamber.Serialiation;
+﻿using Chamber.Core.Requests;
+using Chamber.Core.Users;
+using System.Reflection;
+
+namespace Chamber.Serialization;
 
 internal static class FileArchieve
 {
+    
     private static readonly Dictionary<Type, string> _pathByType = new()
     {
+        {
+            typeof(TelegramUser),"Resources\\Serialization\\Users"
+        },
+        {
+            typeof(Request),"Resources\\Serialization\\Requests"
+        }
     };
 
     public static string PathByType<T>()

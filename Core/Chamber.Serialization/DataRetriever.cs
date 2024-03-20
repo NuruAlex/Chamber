@@ -1,6 +1,9 @@
-﻿using Chamber.Serialiation.InnerRetirver;
+﻿using Chamber.Serialization.InnerRetirver;
+using Chamber.Serialization.Args;
+using Events;
+using Events.Args;
 
-namespace Chamber.Serialiation;
+namespace Chamber.Serialization;
 
 public class DataRetriever
 {
@@ -25,14 +28,17 @@ public class DataRetriever
     }
 
 
-    public List<T> LoadFromFile<T>() => LoadFromFile<T>(FileArchieve.PathByType<T>() + _retriever.Extension) ?? new();
+    public List<T> LoadFromFile<T>() => LoadFromFile<T>(FileArchieve.PathByType<T>() + _retriever.Extension) ?? [];
     public void SaveToFile<T>(List<T> data) => SaveToFile(data, FileArchieve.PathByType<T>() + _retriever.Extension);
 
     public List<T> LoadFromFile<T>(string? path)
     {
         if (path == null)
         {
-            throw new Exception($"Unknown path inner retriever  {_retriever?.GetType().Name} /T:  {typeof(T).Name} ");
+            PriorityEventHandler.Invoke(
+                   new ErrorArgs(
+                new Exception($"Unknown path inner retriever  {_retriever?.GetType().Name} /T:  {typeof(T).Name} ")));
+            return [];
         }
 
         lock (_lock)
@@ -43,7 +49,10 @@ public class DataRetriever
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message + $" DataBase / LoadFromFile<T>() / Type: {_retriever?.GetType().Name} / T:  {typeof(T).Name} "));
+                PriorityEventHandler.Invoke(
+                   new ErrorArgs(
+                        new Exception(ex.Message + $" DataBase / LoadFromFile<T>() / Type: {_retriever?.GetType().Name} / T:  {typeof(T).Name} ")));
+                return [];
             }
         }
     }
@@ -52,7 +61,15 @@ public class DataRetriever
     {
         if (path == null)
         {
-            throw new Exception($"Unknown path inner retriever  {_retriever?.GetType().Name} /T:  {typeof(T).Name} "));
+            PriorityEventHandler.Invoke(
+                new ErrorArgs(
+                    new Exception($"Unknown path inner retriever  {_retriever?.GetType().Name} /T:  {typeof(T).Name} ")));
+            return;
+        }
+        if (!File.Exists(path))
+        {
+            PriorityEventHandler.Invoke(new SerializationError(path, "SaveToFile<T>", typeof(T).Name));
+            return;
         }
 
         lock (_lock)
@@ -63,7 +80,9 @@ public class DataRetriever
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message + $"DataBase / Save<T>() / Type: {_retriever?.GetType().Name} / T:  {typeof(T).Name} "));
+                PriorityEventHandler.Invoke(
+                   new ErrorArgs(
+                        new Exception(ex.Message + $"DataBase / Save<T>() / Type: {_retriever?.GetType().Name} / T:  {typeof(T).Name} ")));
             }
         }
     }
