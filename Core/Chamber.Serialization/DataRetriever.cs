@@ -1,5 +1,4 @@
 ﻿using Chamber.Serialization.InnerRetirver;
-using Chamber.Serialization.Args;
 using Events;
 using Events.Args;
 
@@ -41,11 +40,17 @@ public class DataRetriever
             return [];
         }
 
+        if (!File.Exists(path))
+        {
+            var fs = File.Create(path);
+            fs.Close();
+        }
+
         lock (_lock)
         {
             try
             {
-                return _retriever?.LoadFromFile<T>(path ?? "") ?? [];
+                return _retriever.LoadFromFile<T>(path) ?? [];
             }
             catch (Exception ex)
             {
@@ -66,17 +71,11 @@ public class DataRetriever
                     new Exception($"Unknown path inner retriever  {_retriever?.GetType().Name} /T:  {typeof(T).Name} ")));
             return;
         }
-        if (!File.Exists(path))
-        {
-            PriorityEventHandler.Invoke(new SerializationError(path, "SaveToFile<T>", typeof(T).Name));
-            return;
-        }
-
         lock (_lock)
         {
             try
             {
-                _retriever?.SaveToFile(data, path ?? "");
+                _retriever.SaveToFile(data, path ?? "");
             }
             catch (Exception ex)
             {

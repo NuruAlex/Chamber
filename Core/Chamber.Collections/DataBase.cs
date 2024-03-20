@@ -11,7 +11,7 @@ public static class DataBase
     private static RequestCollection? _requests;
 
 
-    public static UserCollection UserCollection
+    public static UserCollection Users
     {
         get
         {

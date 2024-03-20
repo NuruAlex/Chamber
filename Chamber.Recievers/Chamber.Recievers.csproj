@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Events" Version="1.0.0.1" />
+    <PackageReference Include="Messages.Core" Version="1.0.0.1" />
+    <PackageReference Include="Messages.Handling" Version="1.0.0.1" />
+    <PackageReference Include="Messages.Senders" Version="1.0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Chamber.Collections\Chamber.Collections.csproj" />
+    <ProjectReference Include="..\Core\Chamber.Core\Chamber.Core.csproj" />
+  </ItemGroup>
+
+</Project>
