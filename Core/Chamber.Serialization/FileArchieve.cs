@@ -1,23 +1,11 @@
-﻿using Chamber.Core.Requests;
-using Chamber.Core.Users;
+﻿namespace Chamber.Serialization;
 
-namespace Chamber.Serialization;
-
-internal static class FileArchieve
+public static class FileArchieve
 {
-    
-    private static readonly Dictionary<Type, string> _pathByType = new()
-    {
-        {
-            typeof(TelegramUser),"Resources\\Serialization\\Users"
-        },
-        {
-            typeof(Request),"Resources\\Serialization\\Requests"
-        }
-    };
+    private static readonly string _initialDirectory = "Resources\\Serialization\\";
 
     public static string PathByType<T>()
     {
-        return _pathByType[typeof(T)];
+        return _initialDirectory + typeof(T).Name;
     }
 }

@@ -4,22 +4,22 @@ using Messages.Handling.Args;
 
 namespace Chamber.ConsoleApp;
 
-public class Logger
+public static class Logger
 {
-    public Logger()
+    public static void Init()
     {
         PriorityEventHandler.Subscribe<ErrorArgs>(OnError, 1);
         PriorityEventHandler.Subscribe<MessageRecievedArgs>(OnMessage, 1);
     }
 
-    private void OnMessage(MessageRecievedArgs args)
+    private static void OnMessage(MessageRecievedArgs args)
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"Пришло сообщение в {DateTime.Now}, Текст: {args.Message.Text ?? "Unknown"}");
         Console.ResetColor();
     }
 
-    private void OnError(ErrorArgs args)
+    private static void OnError(ErrorArgs args)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(args.Exception.Message);

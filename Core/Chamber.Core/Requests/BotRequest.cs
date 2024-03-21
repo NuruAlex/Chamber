@@ -6,4 +6,5 @@ namespace Chamber.Core.Requests;
 public class BotRequest(long id, Client client, string problemType) : Request(id, client)
 {
     public string ProblemType = problemType;
+
 }

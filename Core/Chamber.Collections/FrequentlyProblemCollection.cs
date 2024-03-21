@@ -2,7 +2,7 @@
 
 namespace Chamber.Collections;
 
-internal class FrequentlyProblemCollection : UniqeCollection<FrequentlyProblem>
+public class FrequentlyProblemCollection : UniqeCollection<FrequentlyProblem>
 {
     public override bool Contains(FrequentlyProblem item)
     {

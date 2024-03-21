@@ -42,8 +42,7 @@ public class DataRetriever
 
         if (!File.Exists(path))
         {
-            var fs = File.Create(path);
-            fs.Close();
+            File.Create(path).Close();
         }
 
         lock (_lock)

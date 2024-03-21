@@ -10,13 +10,15 @@
   <ItemGroup>
     <PackageReference Include="Events" Version="1.0.0.1" />
     <PackageReference Include="Messages.Core" Version="1.0.0.2" />
-    <PackageReference Include="Messages.Handling" Version="1.0.0.1" />
+    <PackageReference Include="Messages.Handling" Version="1.0.0.3" />
     <PackageReference Include="Messages.Senders" Version="1.0.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Chamber.Collections\Chamber.Collections.csproj" />
-    <ProjectReference Include="..\Core\Chamber.Core\Chamber.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Chamber.Collections\Chamber.Collections.csproj" />
+    <ProjectReference Include="..\..\Core\Chamber.Core\Chamber.Core.csproj" />
+    <ProjectReference Include="..\Chamber.Dialogs\Chamber.Dialogs.csproj" />
+    <ProjectReference Include="..\Chamble.CallBack.Types\Chamble.CallBack.Types.csproj" />
   </ItemGroup>
 
 </Project>

@@ -34,6 +34,14 @@ public abstract class UniqeCollection<T> where T : BaseEntity
         _path = path;
     }
 
+    public void Add(params T[] items)
+    {
+        foreach (T item in items)
+        {
+            Add(item);
+        }
+    }
+
     public void Add(T item)
     {
         if (item == null || Contains(item))//не допускаем null и такой же элемент в коллекции

@@ -5,14 +5,14 @@ using Telegram.Bot.Types;
 
 namespace Chamber.Recievers;
 
-public class MessageReciever
+public static class MessageReciever
 {
-    public MessageReciever()
+    public static void Init()
     {
         PriorityEventHandler.Subscribe<MessageRecievedArgs>(OnMessage, 2);
     }
 
-    private void OnMessage(MessageRecievedArgs args)
+    private static void OnMessage(MessageRecievedArgs args)
     {
         Message message = args.Message;
 
