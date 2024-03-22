@@ -52,11 +52,11 @@ public static class ProcessHandler
     public static bool NextAction(long chatId, Message message)
     {
         ExecutingProcess? proc = Processec.Find(i => i.Id == chatId);
-
         try
         {
             proc?.NextAction(message);
 
+            Processec.Refresh();
             return proc?.StartProcess != null && proc?.StartProcess is IOneActProcess;
         }
         catch (Exception ex)

@@ -33,19 +33,16 @@ public static class CallBackReciever
         switch (packet.Code)
         {
             case CallBackCode.Ingnore: return;
-            case CallBackCode.GetProblemType:
-                new GetProblemDescriptionProcess(client, packet.SendData).Start();
-                break;
+            default: return;
+
             case CallBackCode.NonTypeProblem:
                 process = new CreateHumanRequestProcess(client);
                 break;
-            case CallBackCode.ItHelped:
-                new CreateBotRequestProcess(client, packet.SendData).Start();
-                break;
-            case CallBackCode.PrintProblemTypes:
-                new PrintProblemsProcess(client).Start();
-                break;
-            default: return;
+
+            case CallBackCode.GetProblemType: new GetProblemDescriptionProcess(client, packet.SendData).Start(); break;
+            case CallBackCode.ItHelped: new CreateBotRequestProcess(client, packet.SendData).Start(); break;
+            case CallBackCode.PrintProblemTypes: new PrintProblemsProcess(client).Start(); break;
+            case CallBackCode.ClientMainMenu: new PrintMainMenuDialog(client).Start(); break;
         }
 
         ProcessHandler.Run(client.Id, process);

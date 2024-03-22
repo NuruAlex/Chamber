@@ -7,8 +7,6 @@ using Messages.Senders;
 
 Logger.Init();
 MessageReciever.Init();
-TextReciever.Init();
-ContactReciever.Init();
 CallBackReciever.Init();
 
 BotOptions options = new("test", "7063265373:AAFbiaDrVvV-ozMT5v5Q0l6ZtUievH9iHBA");

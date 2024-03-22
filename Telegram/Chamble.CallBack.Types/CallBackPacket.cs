@@ -27,7 +27,7 @@ public class CallBackPacket
         SendData = sendData ?? "";
     }
 
-  
+
     /// <summary>
     /// Метод задает формат для call back пакета 
     /// </summary>

@@ -6,14 +6,14 @@ public static class DataBase
 {
     public static DataRetriever Serializer = new();
 
-    
+
     private static UserCollection? _users;
 
     private static RequestCollection? _requests;
 
     private static FrequentlyProblemCollection? _problems;
 
-   
+
     public static UserCollection Users
     {
         get
