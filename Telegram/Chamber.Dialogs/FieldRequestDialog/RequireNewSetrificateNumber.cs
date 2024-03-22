@@ -6,12 +6,17 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [Serializable]
-public class RequireNewSetrificateNumber(Client client) : IDataProcess
+public class RequireNewSetrificateNumber : IDataProcess
 {
     public long NewCertificateNumber { get; set; }
     public bool WasDone { get; set; }
-    public Client Client { get; set; } = client;
- 
+    public Client Client { get; set; }
+
+    public RequireNewSetrificateNumber(Client client)
+    {
+        WasDone = false;
+        Client = client;
+    }
     public async void NextAction(Message message)
     {
         if (message.Text == null)
@@ -31,7 +36,7 @@ public class RequireNewSetrificateNumber(Client client) : IDataProcess
 
     public async void Start()
     {
-        await Sender.SendMessage(new TextMessage(Client.Id, "Введите новый номер сертификата"));
+        await Sender.SendMessage(new TextMessage(Client.Id, "Введите новый номер сертификата:"));
         WasDone = false;
     }
 }

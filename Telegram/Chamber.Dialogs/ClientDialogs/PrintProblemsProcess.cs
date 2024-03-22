@@ -1,7 +1,7 @@
 ﻿using Chamber.CallBack.Types;
-using Chamber.Collections;
-using Chamber.Core.FrequentlyProblems;
 using Chamber.Core.Users;
+using Chamber.Dialogs.ProblemSolutionDialogs;
+using Events;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
 using Messages.Core.Reply.Rows;
@@ -17,19 +17,30 @@ public class PrintProblemsProcess(Client client) : IClientProcess
 
     public async void Start()
     {
-        InlineMarkup markup = new(new InlineButton("Не типовая",
+        List<string> problemNames = SolutionArchieve.GetNames(Client);
+
+        InlineMarkup markup = new(new InlineButton("Другая проблема",
             new CallBackPacket(Client.Id, CallBackCode.NonTypeProblem).Pack()),
             new InlineRow());
 
 
-        foreach (FrequentlyProblem problem in DataBase.Problems.Items)
+        foreach (string problem in problemNames)
         {
-            markup.AddButton(new InlineButton(problem.Title,
-                new CallBackPacket(Client.Id, CallBackCode.GetProblemType, sendData: problem.Title).Pack()))
+            markup.AddButton(new InlineButton(problem,
+                new CallBackPacket(Client.Id, CallBackCode.GetSolution, sendData: problem).Pack()))
                 .AddRow();
         }
 
         markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.ClientMainMenu).Pack()));
+        try
+        {
+            markup.ToMarkup();
+        }
+        catch (Exception ex)
+        {
+            PriorityEventHandler.Invoke(new ErrorEventArgs(ex));
+        }
+
         await Sender.SendMessage(new TextMessage(Client.Id, "Выберите тип проблемы", markup));
     }
 }

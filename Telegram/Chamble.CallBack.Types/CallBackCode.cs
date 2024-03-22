@@ -8,4 +8,5 @@ public enum CallBackCode
     ItHelped,
     PrintProblemTypes,
     ClientMainMenu,
+    GetSolution,
 }

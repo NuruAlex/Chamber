@@ -1,5 +1,4 @@
-﻿using Chamber.Collections;
-using Chamber.ConsoleApp;
+﻿using Chamber.ConsoleApp;
 using Chamber.Recievers;
 using Messages.Core.Types;
 using Messages.Handling;
@@ -16,25 +15,6 @@ Sender.SetOptions(options);
 MessageDeleter.SetOptions(options);
 
 Resiever.StartRecieving();
-
-
-
-
-
-DataBase.Problems.Add(
-    new(1, "Отклонить заявку", "Необходимо откатить назад заявку"),
-    new(2, "Нет ответа на вопрос", "Подождать. Если прошло более суток - переотправить"),
-    new(3, "Ошибка при передаче в ВС9", "Откатить заявку назад и переотправить в проект"),
-    new(4, "Нет Responce Id", "Откатить заявку назад и переотправить данные")
-    );
-
-
-
-
-
-
-
-
 
 
 

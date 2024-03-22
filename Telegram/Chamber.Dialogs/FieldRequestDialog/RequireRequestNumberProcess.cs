@@ -6,12 +6,18 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [Serializable]
-public class RequireRequestNumberProcess(Client client) : IDataProcess
+public class RequireRequestNumberProcess : IDataProcess
 {
     public long RequestNumber { get; set; }
-    public bool WasDone { get; set; } = false;
+    public bool WasDone { get; set; }
+    public Client Client { get; set; }
 
-    public Client Client { get; set; } = client;
+    public RequireRequestNumberProcess(Client client)
+    {
+        Client = client;
+        WasDone = false;
+    }
+
     public async void NextAction(Message message)
     {
         if (message.Text == null)
@@ -24,13 +30,13 @@ public class RequireRequestNumberProcess(Client client) : IDataProcess
             await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, номер заявки должен быть числом:"));
             return;
         }
+
         RequestNumber = number;
         WasDone = true;
     }
 
     public async void Start()
     {
-        await Sender.SendMessage(new TextMessage(Client.Id, "Введите номер заявки"));
-        WasDone = false;
+        await Sender.SendMessage(new TextMessage(Client.Id, "Введите номер заявки:"));
     }
 }

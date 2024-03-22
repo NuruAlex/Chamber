@@ -11,7 +11,6 @@ public static class DataBase
 
     private static RequestCollection? _requests;
 
-    private static FrequentlyProblemCollection? _problems;
 
 
     public static UserCollection Users
@@ -29,14 +28,4 @@ public static class DataBase
             return _requests ??= new();
         }
     }
-
-    public static FrequentlyProblemCollection Problems
-    {
-        get
-        {
-            return _problems ??= new();
-        }
-    }
-
-
 }
