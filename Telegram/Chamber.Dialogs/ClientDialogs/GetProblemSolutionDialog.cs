@@ -17,6 +17,7 @@ public class GetProblemSolutionDialog(Client client, string problemTitle) : ICli
         {
             return;
         }
+
         ProcessHandler.Run(Client.Id, solutionProcess);
     }
 }

@@ -74,7 +74,7 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
             }
             else if (message.Photo != null)
             {
-                PhotoBuilder photoBuilder = new PhotoBuilder();
+                PhotoBuilder photoBuilder = new ();
                 var m = photoBuilder.BuildWithUriOrFileId(Client.Id, message.Photo[message.Photo.Length - 1].FileId);
 
                 if (m is PhotoMessage photo)

@@ -17,7 +17,7 @@ public class PrintMainMenuDialog(Client client) : IClientProcess
         await Sender.SendMessage(new TextMessage(Client.Id, "Вас приветсвует поддержка Торгово-промышленной палаты РФ, здесь вы можете найти решение проблем")
         {
             Markup = new InlineMarkup(
-                new InlineButton("Создать обращение", new CallBackPacket(Client.Id, CallBackCode.PrintProblemTypes).Pack())
+                new InlineButton("Создать обращение", new CallBackPacket(Client.Id, CallBackCode.PrintProblemTypes))
                 )
         });
     }

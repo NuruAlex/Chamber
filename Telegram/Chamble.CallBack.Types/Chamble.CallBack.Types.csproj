@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Events" Version="1.0.0.1" />
+    <PackageReference Include="Events" Version="1.0.0.2" />
+    <PackageReference Include="Messages.Core" Version="1.0.0.3" />
   </ItemGroup>
 
 </Project>

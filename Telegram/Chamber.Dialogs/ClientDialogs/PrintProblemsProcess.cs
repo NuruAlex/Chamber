@@ -20,18 +20,18 @@ public class PrintProblemsProcess(Client client) : IClientProcess
         List<string> problemNames = SolutionArchieve.GetNames(Client);
 
         InlineMarkup markup = new(new InlineButton("Другая проблема",
-            new CallBackPacket(Client.Id, CallBackCode.NonTypeProblem).Pack()),
+            new CallBackPacket(Client.Id, CallBackCode.NonTypeProblem)),
             new InlineRow());
 
 
         foreach (string problem in problemNames)
         {
             markup.AddButton(new InlineButton(problem,
-                new CallBackPacket(Client.Id, CallBackCode.GetSolution, sendData: problem).Pack()))
+                new CallBackPacket(Client.Id, CallBackCode.GetSolution, sendData: problem)))
                 .AddRow();
         }
 
-        markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.ClientMainMenu).Pack()));
+        markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.ClientMainMenu)));
         try
         {
             markup.ToMarkup();

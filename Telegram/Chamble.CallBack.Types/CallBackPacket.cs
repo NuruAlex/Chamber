@@ -1,11 +1,12 @@
 ﻿using Events;
 using Events.Args;
+using Messages.Core.Reply.CallBack;
 
 namespace Chamber.CallBack.Types;
 
 
 [Serializable]
-public class CallBackPacket
+public class CallBackPacket : ICallBackPacket
 {
     public int Number { get; set; } = -1;
     public long ChatId { get; set; } = -1;
