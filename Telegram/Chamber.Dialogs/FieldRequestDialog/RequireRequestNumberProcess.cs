@@ -7,20 +7,15 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [JsonObject]
-public class RequireRequestNumberProcess : IDataProcess
+public class RequireRequestNumberProcess(Client client) : IDataProcess
 {
     [JsonProperty]
     public long RequestNumber { get; set; }
+
     [JsonProperty]
-    public bool WasDone { get; set; }
+    public bool WasDone { get; set; } = false;
 
-    public Client Client { get; set; }
-
-    public RequireRequestNumberProcess(Client client)
-    {
-        Client = client;
-        WasDone = false;
-    }
+    public Client Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {

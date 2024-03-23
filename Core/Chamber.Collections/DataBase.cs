@@ -4,7 +4,14 @@ namespace Chamber.Collections;
 
 public static class DataBase
 {
-    public static DataRetriever Serializer = new();
+    private static DataRetriever? _retriever;
+    public static DataRetriever Serializer
+    {
+        get
+        {
+            return _retriever ??= new();
+        }
+    }
 
 
     private static UserCollection? _users;

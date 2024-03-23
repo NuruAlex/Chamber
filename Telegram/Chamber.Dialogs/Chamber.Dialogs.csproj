@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Events" Version="1.0.0.2" />
     <PackageReference Include="Messages.Building" Version="1.0.0" />
-    <PackageReference Include="Messages.Core" Version="1.0.0.2" />
+    <PackageReference Include="Messages.Core" Version="1.0.0.3" />
     <PackageReference Include="Messages.Senders" Version="1.0.0.3" />
     <PackageReference Include="Telegram.Bot" Version="19.0.0" />
   </ItemGroup>

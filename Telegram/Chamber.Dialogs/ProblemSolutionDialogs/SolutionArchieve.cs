@@ -6,7 +6,7 @@ namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 public static class SolutionArchieve
 {
-    private static Dictionary<string, ISolutionProcess> _solutionDialogs = new();
+    private static Dictionary<string, ISolutionProcess> _solutionDialogs = [];
 
     private static void Update(Client client)
     {

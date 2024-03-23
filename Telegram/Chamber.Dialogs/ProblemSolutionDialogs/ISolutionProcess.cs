@@ -2,7 +2,7 @@
 
 namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
-public interface ISolutionProcess:IMultiActProcess
+public interface ISolutionProcess : IMultiActProcess
 {
     List<IDataProcess> Processes { get; set; }
 }

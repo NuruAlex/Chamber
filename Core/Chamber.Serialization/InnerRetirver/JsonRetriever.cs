@@ -10,13 +10,21 @@ public class JsonRetriever : IRetriever
     {
         TypeNameHandling = TypeNameHandling.Auto,
         NullValueHandling = NullValueHandling.Ignore,
+        Formatting = Formatting.Indented,
     };
 
-    public List<T> LoadFromFile<T>(string path) => JsonConvert.DeserializeObject<List<T>>(
-            value: File.ReadAllText(path),
-            settings: _serializeSettings) ?? [];
+    public List<T> LoadFromFile<T>(string path)
+    {
+        string json = File.ReadAllText(path);
 
-    public void SaveToFile<T>(List<T> data, string path) => File.WriteAllText(
-            path: path,
-            contents: JsonConvert.SerializeObject(data, _serializeSettings));
+        return JsonConvert.DeserializeObject<List<T>>(json, _serializeSettings) 
+            ?? [];
+    }
+
+    public void SaveToFile<T>(List<T> data, string path)
+    {
+        string json = JsonConvert.SerializeObject(data, _serializeSettings);
+
+        File.WriteAllText(path, json);
+    }
 }

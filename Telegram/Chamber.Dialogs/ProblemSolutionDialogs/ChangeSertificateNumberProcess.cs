@@ -9,24 +9,19 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 [JsonObject]
-public class ChangeSertificateNumberProcess : ISolutionProcess
+public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
 {
-    public Client Client { get; set; }
-    public List<IDataProcess> Processes { get; set; }
-
-    public ChangeSertificateNumberProcess(Client client)
-    {
-        Client = client;
-        Processes =
+    public Client Client { get; set; } = client;
+    public List<IDataProcess> Processes { get; set; } =
         [
             new RequireRequestNumberProcess(client),
             new RequireNewSetrificateNumber(client)
         ];
-    }
+
     [JsonProperty]
     public int Iteration { get; set; }
+   
     [JsonProperty]
-
     public long NewSetrificateNumber { get; set; }
 
     [JsonProperty]

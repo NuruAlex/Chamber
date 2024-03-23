@@ -7,21 +7,19 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [JsonObject]
-public class RequireNewSetrificateNumber : IDataProcess
+public class RequireNewSetrificateNumber(Client client) : IDataProcess
 {
+   
     [JsonProperty]
     public long NewCertificateNumber { get; set; }
+    
     [JsonProperty]
-    public bool WasDone { get; set; }
-    public Client Client { get; set; }
+    public bool WasDone { get; set; } = false;
+    public Client Client { get; set; } = client;
 
-    public RequireNewSetrificateNumber(Client client)
-    {
-        WasDone = false;
-        Client = client;
-    }
     public async void NextAction(Message message)
     {
+       
         if (message.Text == null)
         {
             await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите новый номер сертификата"));

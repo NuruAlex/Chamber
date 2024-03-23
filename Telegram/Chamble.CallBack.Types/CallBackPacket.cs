@@ -18,6 +18,7 @@ public class CallBackPacket
     {
         _callBack = callBackData;
         SendData = "";
+        Unpack();
     }
     public CallBackPacket(long chatId, CallBackCode code, int? number = null, string? sendData = null)
     {

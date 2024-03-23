@@ -2,7 +2,7 @@
 using Chamber.Collections;
 using Chamber.Core.Users;
 using Chamber.Dialogs;
-using Chamber.Dialogs.ClientDialogs;
+using Chamber.Recievers.Archieves;
 using Chamber.Support.Types;
 using Events;
 using Events.Args;
@@ -14,8 +14,8 @@ namespace Chamber.Recievers;
 
 public static class CallBackReciever
 {
-    private static TelegramUser? _user;
     private static Message? _message;
+
     public static void Init()
     {
         PriorityEventHandler.Subscribe<CallBackRecievedArgs>(OnCallBack, 1);
@@ -23,26 +23,11 @@ public static class CallBackReciever
 
     private static void OnClientCallBack(Client client, CallBackPacket packet)
     {
-        IProcess process = new UnknownProcess();
+        IProcess process = CallBackDialogArchieve.GetClientProcess(client, packet);
 
         if (_message != null)
         {
             MessageDeleter.DeleteMessage(_message);
-        }
-
-        switch (packet.Code)
-        {
-            case CallBackCode.Ingnore: return;
-            default: return;
-
-            case CallBackCode.NonTypeProblem:
-                process = new CreateHumanRequestProcess(client);
-                break;
-
-            case CallBackCode.GetSolution: new GetProblemSolutionDialog(client, packet.SendData).Start(); break;
-            case CallBackCode.ItHelped: new CreateBotRequestProcess(client, packet.SendData).Start(); break;
-            case CallBackCode.PrintProblemTypes: new PrintProblemsProcess(client).Start(); break;
-            case CallBackCode.ClientMainMenu: new PrintMainMenuDialog(client).Start(); break;
         }
 
         ProcessHandler.Run(client.Id, process);
@@ -60,6 +45,7 @@ public static class CallBackReciever
 
         if (args.CallBack.Message == null)
         {
+            PriorityEventHandler.Invoke(new ErrorArgs(new Exception("call back message exception")));
             return;
         }
 
@@ -68,15 +54,15 @@ public static class CallBackReciever
         CallBackPacket packet = new(args.CallBack.Data);
         packet.Unpack();
 
-        _user = DataBase.Users.Find(i => i.Id == packet.ChatId);
+        TelegramUser? user = DataBase.Users.Find(i => i.Id == packet.ChatId);
 
-        if (_user is null)
+        if (user is null)
         {
             PriorityEventHandler.Invoke(new ErrorArgs(new Exception("user not found exception")));
             return;
         }
 
-        if (_user is Client client)
+        if (user is Client client)
         {
             OnClientCallBack(client, packet);
         }

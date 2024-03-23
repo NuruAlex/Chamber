@@ -1,0 +1,7 @@
+{
+  "$type": "Chamber.Core.Users.Client, Chamber.Core",
+  "FirstName": "Саша",
+  "Phone": "79037822637",
+  "Id": 691047752,
+  "Creation": "2024-03-23T15:32:37.0441645+03:00"
+}

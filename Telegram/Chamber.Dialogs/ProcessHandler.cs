@@ -8,19 +8,24 @@ namespace Chamber.Support.Types;
 
 public static class ProcessHandler
 {
-    public static ExecutingProcessCollection Processec => new();
+    private static readonly ExecutingProcessCollection? _processes;
+    public static ExecutingProcessCollection Processec
+    {
+        get
+        {
+            return _processes ?? new();
+        }
+    }
 
     public static void Run(long id, IProcess process)
     {
+        if (process is UnknownProcess)
+        {
+            return;
+        }
+
         try
         {
-            if (process is UnknownProcess)
-            {
-                return;
-            }
-
-
-
             ExecutingProcess? executingProcess = Processec.Find(i => i.Id == id);
 
             if (executingProcess == null)
@@ -28,14 +33,14 @@ public static class ProcessHandler
                 executingProcess = new(id, process);
                 executingProcess.Start();
                 Processec.Add(executingProcess);
-                Processec.Refresh();
-                return;
+            }
+            else
+            {
+                executingProcess.StartProcess = process;
+                executingProcess.Start();
             }
 
-            executingProcess.StartProcess = process;
-            executingProcess.Start();
             Processec.Refresh();
-            return;
         }
         catch (Exception ex)
         {
@@ -57,14 +62,12 @@ public static class ProcessHandler
         {
             ExecutingProcess? proc = Processec.Find(i => i.Id == chatId);
 
-            if (proc == null)
+            if (proc != null)
             {
-                return false;
+                proc.NextAction(message);
+                Processec.Refresh();
             }
-            proc.NextAction(message);
 
-            PriorityEventHandler.Invoke(new LogMessage("Вызвался метод NextAction / ProcessHandler "));
-            Processec.Refresh();
             return proc?.StartProcess != null && proc?.StartProcess is IOneActProcess;
         }
         catch (Exception ex)
