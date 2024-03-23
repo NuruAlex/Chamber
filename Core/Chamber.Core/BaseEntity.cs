@@ -5,9 +5,9 @@ namespace Chamber.Core;
 [JsonObject]
 public class BaseEntity(long id)
 {
-    [JsonProperty("Id")]
-    public long Id = id;
+    [JsonProperty]
+    public long Id { get; set; } = id;
 
-    [JsonProperty("Creation")]
-    public DateTime Creation = DateTime.Now;
+    [JsonProperty]
+    public DateTime Creation { get; set; } = DateTime.Now;
 }

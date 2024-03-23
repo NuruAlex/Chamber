@@ -6,5 +6,5 @@ namespace Chamber.Core.Users;
 public class Specialist(long chatId, string phone) : TelegramUser(chatId, phone)
 {
     [JsonProperty]
-    public readonly int Level = 1;
+    public int Level { get; set; } = 1;
 }

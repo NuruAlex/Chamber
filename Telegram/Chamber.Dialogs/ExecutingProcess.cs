@@ -1,4 +1,5 @@
 ﻿using Chamber.Core;
+using Chamber.Support.Types;
 using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs;
@@ -26,5 +27,6 @@ public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId
         }
 
         process.NextAction(message);
+        ProcessHandler.Processec.Refresh();     
     }
 }

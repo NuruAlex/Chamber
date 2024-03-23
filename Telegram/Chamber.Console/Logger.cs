@@ -10,6 +10,14 @@ public static class Logger
     {
         PriorityEventHandler.Subscribe<ErrorArgs>(OnError, 1);
         PriorityEventHandler.Subscribe<MessageRecievedArgs>(OnMessage, 1);
+        PriorityEventHandler.Subscribe<LogMessage>(OnLogMessage, 1);
+    }
+
+    private static void OnLogMessage(LogMessage message)
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"Пришло сообщение в {DateTime.Now}, Текст: {message.Message}");
+        Console.ResetColor();
     }
 
     private static void OnMessage(MessageRecievedArgs args)

@@ -1,14 +1,17 @@
 ﻿using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
+using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs.FieldRequestDialog;
 
-[Serializable]
+[JsonObject]
 public class RequireNewSetrificateNumber : IDataProcess
 {
+    [JsonProperty]
     public long NewCertificateNumber { get; set; }
+    [JsonProperty]
     public bool WasDone { get; set; }
     public Client Client { get; set; }
 

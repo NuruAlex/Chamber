@@ -1,15 +1,19 @@
 ﻿using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
+using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs.FieldRequestDialog;
 
-[Serializable]
+[JsonObject]
 public class RequireRequestNumberProcess : IDataProcess
 {
+    [JsonProperty]
     public long RequestNumber { get; set; }
+    [JsonProperty]
     public bool WasDone { get; set; }
+
     public Client Client { get; set; }
 
     public RequireRequestNumberProcess(Client client)

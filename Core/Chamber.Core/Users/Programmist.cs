@@ -6,5 +6,5 @@ namespace Chamber.Core.Users;
 public class Programmist(long chatId, string phone) : TelegramUser(chatId, phone)
 {
     [JsonProperty]
-    public readonly int Level = 2;
+    public int Level { get; set; } = 2;
 }
