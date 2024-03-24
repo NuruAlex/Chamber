@@ -13,7 +13,7 @@ public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId
 
     public void Start()
     {
-        StartProcess.Start();
+        StartProcess?.Start();
     }
 
     public void NextAction(Message message)
@@ -28,7 +28,7 @@ public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId
             return;
         }
 
-        PriorityEventHandler.Invoke(new LogMessage("ExecutingProcess / NextAction"));   
+        PriorityEventHandler.Invoke(new LogMessage("ExecutingProcess / NextAction"));
         process.NextAction(message);
         ProcessHandler.Processec.Refresh();
     }

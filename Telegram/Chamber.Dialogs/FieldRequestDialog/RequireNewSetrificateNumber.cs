@@ -9,17 +9,17 @@ namespace Chamber.Dialogs.FieldRequestDialog;
 [JsonObject]
 public class RequireNewSetrificateNumber(Client client) : IDataProcess
 {
-   
+
     [JsonProperty]
     public long NewCertificateNumber { get; set; }
-    
+
     [JsonProperty]
     public bool WasDone { get; set; } = false;
     public Client Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
-       
+
         if (message.Text == null)
         {
             await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите новый номер сертификата"));

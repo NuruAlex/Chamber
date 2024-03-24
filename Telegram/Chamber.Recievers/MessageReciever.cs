@@ -44,9 +44,9 @@ public static class MessageReciever
                 Markup = new RemoveMarkup()
             });
 
-          /*  Thread.Sleep(1000);
+            /*  Thread.Sleep(1000);
 
-            MessageDeleter.DeleteMessage(chat, id);*/
+              MessageDeleter.DeleteMessage(chat, id);*/
 
             new PrintMainMenuDialog(client).Start();
         }

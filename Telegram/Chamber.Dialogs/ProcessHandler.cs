@@ -31,16 +31,18 @@ public static class ProcessHandler
             if (executingProcess == null)
             {
                 executingProcess = new(id, process);
-                executingProcess.Start();
                 Processec.Add(executingProcess);
             }
             else
             {
                 executingProcess.StartProcess = process;
-                executingProcess.Start();
             }
+            executingProcess.Start();
 
-            Processec.Refresh();
+            if (executingProcess.StartProcess is not IOneActProcess)
+            {
+                Processec.Refresh();
+            }
         }
         catch (Exception ex)
         {
@@ -60,15 +62,15 @@ public static class ProcessHandler
     {
         try
         {
-            ExecutingProcess? proc = Processec.Find(i => i.Id == chatId);
+            ExecutingProcess? process = Processec.Find(i => i.Id == chatId);
 
-            if (proc != null)
+            if (process != null)
             {
-                proc.NextAction(message);
+                process.NextAction(message);
                 Processec.Refresh();
             }
 
-            return proc?.StartProcess != null && proc?.StartProcess is IOneActProcess;
+            return process?.StartProcess != null && process?.StartProcess is IOneActProcess;
         }
         catch (Exception ex)
         {

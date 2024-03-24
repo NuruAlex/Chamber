@@ -21,10 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chamber.Dialogs", "Telegram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chamble.CallBack.Types", "Telegram\Chamble.CallBack.Types\Chamble.CallBack.Types.csproj", "{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{06F1D5C7-A654-45CF-8CB3-A4B6D51ABB2C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages.Senders.Extensions", "Extensions\Messages.Senders.Extensions\Messages.Senders.Extensions.csproj", "{07954938-7CB3-4055-BCC8-DDDE1A7DBC71}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +55,6 @@ Global
 		{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07954938-7CB3-4055-BCC8-DDDE1A7DBC71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07954938-7CB3-4055-BCC8-DDDE1A7DBC71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07954938-7CB3-4055-BCC8-DDDE1A7DBC71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07954938-7CB3-4055-BCC8-DDDE1A7DBC71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,7 +67,6 @@ Global
 		{A086DE62-2D26-4442-9F19-2F14CE5D2D8C} = {9701D864-EE9E-4696-8484-9B08092FEDE5}
 		{10A443E0-5C6A-4906-8C2D-900CCD0ED9A3} = {9701D864-EE9E-4696-8484-9B08092FEDE5}
 		{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C} = {9701D864-EE9E-4696-8484-9B08092FEDE5}
-		{07954938-7CB3-4055-BCC8-DDDE1A7DBC71} = {06F1D5C7-A654-45CF-8CB3-A4B6D51ABB2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B1908E8-6401-490A-92E9-81419C31C3AC}

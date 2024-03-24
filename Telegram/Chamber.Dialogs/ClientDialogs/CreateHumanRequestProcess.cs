@@ -1,7 +1,6 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
-using Chamber.Support.Types;
 using Messages.Building.InnerBuilders;
 using Messages.Core.Types;
 using Messages.Senders;
@@ -17,45 +16,33 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
 
     private readonly List<int> _ids = [];
 
-    private string? _name;
+    private readonly string? _name;
     private string? _description;
-    private int id;
 
     public async void NextAction(Message message)
     {
         Iteration++;
         _ids.Add(message.MessageId);
 
+
         if (Iteration == 0)
         {
             if (message.Text == null)
             {
-                id = await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите текст (название обращения):"));
-                _ids.Add(id);
-                Iteration--;
-                return;
-            }
-            _name = message.Text;
-            id = await Sender.SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:"));
-            _ids.Add(id);
-        }
+                _ids.Add(await Sender
+                    .SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите текст (описание проблемы):")));
 
-        if (Iteration == 1)
-        {
-            if (message.Text == null)
-            {
-                id = await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите текст (описание проблемы):"));
-                _ids.Add(id);
                 Iteration--;
                 return;
             }
 
             _description = message.Text;
-            id = await Sender.SendMessage(new TextMessage(Client.Id, "Отправьте скриншот проблемы или нажмите команду /пропустить:"));
-            _ids.Add(id);
+
+            _ids.Add(await Sender
+                .SendMessage(new TextMessage(Client.Id, "Отправьте скриншот проблемы или нажмите команду /пропустить:")));
         }
 
-        if (Iteration == 2)
+        if (Iteration == 1)
         {
             int requestId = DataBase.Requests.Count + 1;
             HumanRequest request = new(requestId, Client)
@@ -69,12 +56,13 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
             {
                 DataBase.Requests.Add(request);
 
-                id = await Sender.SendMessage(new TextMessage(Client.Id, $"Ваше обращение зарегестрировано\nНомер обращения: {requestId} "));
-                _ids.Add(id);
+                _ids.Add(await Sender
+                    .SendMessage(new TextMessage(Client.Id, $"Ваше обращение зарегестрировано\nНомер обращения: {requestId} ")));
             }
             else if (message.Photo != null)
             {
-                PhotoBuilder photoBuilder = new ();
+                PhotoBuilder photoBuilder = new();
+
                 var m = photoBuilder.BuildWithUriOrFileId(Client.Id, message.Photo[message.Photo.Length - 1].FileId);
 
                 if (m is PhotoMessage photo)
@@ -83,13 +71,14 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
                 }
 
                 DataBase.Requests.Add(request);
-                id = await Sender.SendMessage(new TextMessage(Client.Id, $"Ваше обращение зарегестрировано\nНомер обращения: {requestId} "));
-                _ids.Add(id);
+
+                _ids.Add(await Sender
+                    .SendMessage(new TextMessage(Client.Id, $"Ваше обращение зарегестрировано\nНомер обращения: {requestId} ")));
             }
             else
             {
-                id = await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, отправьте скриншот или нажмите команду /пропустить:"));
-                _ids.Add(id);
+                _ids.Add(await Sender
+                    .SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, отправьте скриншот или нажмите команду /пропустить:")));
                 Iteration--;
                 return;
             }
@@ -99,7 +88,7 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
 
     public async void Start()
     {
-        id = await Sender.SendMessage(new TextMessage(Client.Id, "Введите название обращения:"));
-        _ids.Add(id);
+        _ids.Add(await Sender
+            .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
     }
 }

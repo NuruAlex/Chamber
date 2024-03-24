@@ -17,7 +17,7 @@ public class JsonRetriever : IRetriever
     {
         string json = File.ReadAllText(path);
 
-        return JsonConvert.DeserializeObject<List<T>>(json, _serializeSettings) 
+        return JsonConvert.DeserializeObject<List<T>>(json, _serializeSettings)
             ?? [];
     }
 

@@ -20,7 +20,7 @@ public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
 
     [JsonProperty]
     public int Iteration { get; set; }
-   
+
     [JsonProperty]
     public long NewSetrificateNumber { get; set; }
 
