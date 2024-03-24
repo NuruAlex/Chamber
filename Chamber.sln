@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chamber.Dialogs", "Telegram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chamble.CallBack.Types", "Telegram\Chamble.CallBack.Types\Chamble.CallBack.Types.csproj", "{9E4BCA99-4BBF-42D2-B101-F5B6FC6D821C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Log", "Log", "{433719A0-2462-4EA8-B584-1168C8AC4152}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

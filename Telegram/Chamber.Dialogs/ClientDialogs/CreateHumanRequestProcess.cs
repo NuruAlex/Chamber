@@ -1,6 +1,8 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
+using Events;
+using Events.Args;
 using Messages.Building.InnerBuilders;
 using Messages.Core.Types;
 using Messages.Senders;
@@ -9,15 +11,14 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.ClientDialogs;
 
 [Serializable]
-public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
+public class CreateHumanRequestProcess(Client client) : IMultiActProcess
 {
     public Client Client { get; set; } = client;
     public int Iteration { get; set; } = -1;
 
     private readonly List<int> _ids = [];
 
-    private readonly string? _name;
-    private string? _description;
+    public string? _description;
 
     public async void NextAction(Message message)
     {
@@ -47,7 +48,6 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
             int requestId = DataBase.Requests.Count + 1;
             HumanRequest request = new(requestId, Client)
             {
-                Name = _name,
                 Description = _description,
                 Level = 1,
             };
@@ -88,7 +88,14 @@ public class CreateHumanRequestProcess(Client client) : IClientMultiActProcess
 
     public async void Start()
     {
-        _ids.Add(await Sender
-            .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
+        try
+        {
+            _ids.Add(await Sender
+                .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
+        }
+        catch (Exception ex)
+        {
+            PriorityEventHandler.Invoke(new ErrorArgs(ex));
+        }
     }
 }

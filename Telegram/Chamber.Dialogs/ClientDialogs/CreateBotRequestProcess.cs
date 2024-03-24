@@ -7,7 +7,7 @@ using Messages.Senders;
 namespace Chamber.Dialogs.ClientDialogs;
 
 [Serializable]
-public class CreateBotRequestProcess(Client client, string problemType) : IClientProcess
+public class CreateBotRequestProcess(Client client, string problemType) : IProcess
 {
     public Client Client { get; set; } = client;
     public string ProblemType { get; set; } = problemType;

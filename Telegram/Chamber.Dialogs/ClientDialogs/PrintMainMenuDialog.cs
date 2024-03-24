@@ -8,7 +8,7 @@ using Messages.Senders;
 namespace Chamber.Dialogs.ClientDialogs;
 
 [Serializable]
-public class PrintMainMenuDialog(Client client) : IClientProcess
+public class PrintMainMenuDialog(Client client) : IProcess
 {
     public Client Client { get; set; } = client;
 

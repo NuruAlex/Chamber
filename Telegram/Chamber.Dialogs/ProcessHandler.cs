@@ -39,10 +39,8 @@ public static class ProcessHandler
             }
             executingProcess.Start();
 
-            if (executingProcess.StartProcess is not IOneActProcess)
-            {
-                Processec.Refresh();
-            }
+            Processec.Refresh();
+            PriorityEventHandler.Invoke(new LogMessage("Refreshed"));
         }
         catch (Exception ex)
         {

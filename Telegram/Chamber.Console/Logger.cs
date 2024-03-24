@@ -2,7 +2,7 @@
 using Events.Args;
 using Messages.Handling.Args;
 
-namespace Chamber.ConsoleApp;
+namespace Chamber.Log;
 
 public static class Logger
 {
@@ -11,6 +11,10 @@ public static class Logger
         PriorityEventHandler.Subscribe<ErrorArgs>(OnError, 1);
         PriorityEventHandler.Subscribe<MessageRecievedArgs>(OnMessage, 1);
         PriorityEventHandler.Subscribe<LogMessage>(OnLogMessage, 1);
+    }
+    public static void LogMessage(string message)
+    {
+        PriorityEventHandler.Invoke(new LogMessage(message));
     }
 
     private static void OnLogMessage(LogMessage message)

@@ -1,7 +1,6 @@
 ﻿using Chamber.CallBack.Types;
 using Chamber.Core.Users;
 using Chamber.Dialogs.ProblemSolutionDialogs;
-using Events;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
 using Messages.Core.Reply.Rows;
@@ -11,7 +10,7 @@ using Messages.Senders;
 namespace Chamber.Dialogs.ClientDialogs;
 
 [Serializable]
-public class PrintProblemsProcess(Client client) : IClientProcess
+public class PrintProblemsProcess(Client client) : IProcess
 {
     public Client Client { get; set; } = client;
 
@@ -32,14 +31,6 @@ public class PrintProblemsProcess(Client client) : IClientProcess
         }
 
         markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.ClientMainMenu)));
-        try
-        {
-            markup.ToMarkup();
-        }
-        catch (Exception ex)
-        {
-            PriorityEventHandler.Invoke(new ErrorEventArgs(ex));
-        }
 
         await Sender.SendMessage(new TextMessage(Client.Id, "Выберите тип проблемы", markup));
     }

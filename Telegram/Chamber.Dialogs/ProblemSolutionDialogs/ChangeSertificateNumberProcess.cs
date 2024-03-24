@@ -3,28 +3,30 @@ using Chamber.Dialogs.ClientDialogs;
 using Chamber.Dialogs.FieldRequestDialog;
 using Messages.Core.Types;
 using Messages.Senders;
-using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
-[JsonObject]
-public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
+[Serializable]
+public class ChangeSertificateNumberProcess : ISolutionProcess
 {
-    public Client Client { get; set; } = client;
-    public List<IDataProcess> Processes { get; set; } =
+    public Client Client { get; set; }
+    public List<IDataProcess> Processes { get; set; }
+
+    public ChangeSertificateNumberProcess(Client client)
+    {
+        Client = client;
+        Processes =
         [
             new RequireRequestNumberProcess(client),
             new RequireNewSetrificateNumber(client)
         ];
+    }
 
-    [JsonProperty]
     public int Iteration { get; set; }
 
-    [JsonProperty]
     public long NewSetrificateNumber { get; set; }
 
-    [JsonProperty]
     public long RequestNumber { get; set; }
 
     public async void NextAction(Message message)

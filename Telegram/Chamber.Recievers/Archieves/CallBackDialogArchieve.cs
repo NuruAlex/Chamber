@@ -9,7 +9,7 @@ namespace Chamber.Recievers.Archieves;
 
 public static class CallBackDialogArchieve
 {
-    private static Dictionary<CallBackCode, IClientProcess> _clientProcesses = [];
+    private static Dictionary<CallBackCode, IProcess> _clientProcesses = [];
 
     private static void Update(Client client, CallBackPacket packet)
     {
@@ -22,6 +22,7 @@ public static class CallBackDialogArchieve
             { CallBackCode.ClientMainMenu, new PrintMainMenuDialog(client) },
         };
     }
+
     public static IProcess GetClientProcess(Client client, CallBackPacket packet)
     {
         try

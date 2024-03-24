@@ -4,7 +4,8 @@ using Chamber.Support.Types;
 
 namespace Chamber.Dialogs.ClientDialogs;
 
-public class GetProblemSolutionDialog(Client client, string problemTitle) : IClientProcess
+[Serializable]
+public class GetProblemSolutionDialog(Client client, string problemTitle) : IProcess
 {
     public Client Client { get; set; } = client;
     public string ProblemType { get; set; } = problemTitle;

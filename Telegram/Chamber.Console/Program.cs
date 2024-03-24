@@ -1,10 +1,8 @@
-﻿using Chamber.ConsoleApp;
-using Chamber.Recievers;
+﻿using Chamber.Recievers;
 using Messages.Core.Types;
 using Messages.Handling;
 using Messages.Senders;
 
-Logger.Init();
 MessageReciever.Init();
 CallBackReciever.Init();
 
