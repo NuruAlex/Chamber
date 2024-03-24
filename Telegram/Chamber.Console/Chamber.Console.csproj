@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Log\Chamber.Log\Chamber.Log.csproj" />
     <ProjectReference Include="..\Chamber.Recievers\Chamber.Recievers.csproj" />
   </ItemGroup>
 

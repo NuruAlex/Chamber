@@ -2,7 +2,9 @@
 using Messages.Core.Types;
 using Messages.Handling;
 using Messages.Senders;
+using Chamber.Log;
 
+Logger.Init();
 MessageReciever.Init();
 CallBackReciever.Init();
 
