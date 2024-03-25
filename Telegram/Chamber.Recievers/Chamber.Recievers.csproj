@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Chamber.Collections\Chamber.Collections.csproj" />
     <ProjectReference Include="..\..\Core\Chamber.Core\Chamber.Core.csproj" />
+    <ProjectReference Include="..\..\Log\Chamber.Log\Chamber.Log.csproj" />
     <ProjectReference Include="..\Chamber.Dialogs\Chamber.Dialogs.csproj" />
     <ProjectReference Include="..\Chamble.CallBack.Types\Chamble.CallBack.Types.csproj" />
   </ItemGroup>

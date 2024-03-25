@@ -2,6 +2,7 @@
 using Chamber.Collections;
 using Chamber.Core.Users;
 using Chamber.Dialogs;
+using Chamber.Log;
 using Chamber.Recievers.Archieves;
 using Chamber.Support.Types;
 using Events;
@@ -29,8 +30,8 @@ public static class CallBackReciever
         {
             MessageDeleter.DeleteMessage(_message);
         }
-
         ProcessHandler.Run(client.Id, process);
+        Logger.LogMessage($"CallBackReciever / OnClientCallBack / packet code {packet.Code} / {process.GetType().Name}");
     }
 
 

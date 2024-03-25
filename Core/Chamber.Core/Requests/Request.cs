@@ -6,4 +6,5 @@ namespace Chamber.Core.Requests;
 public abstract class Request(long id, Client client) : BaseEntity(id)
 {
     public Client Client { get; set; } = client;
+    public TelegramUser? Executor { get; set; }
 }

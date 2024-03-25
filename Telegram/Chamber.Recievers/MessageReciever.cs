@@ -1,10 +1,10 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Users;
 using Chamber.Dialogs.ClientDialogs;
+using Chamber.Log;
 using Chamber.Recievers.Args;
 using Chamber.Support.Types;
 using Events;
-using Events.Args;
 using Messages.Core.Reply.Markups;
 using Messages.Core.Types;
 using Messages.Handling;
@@ -56,7 +56,6 @@ public static class MessageReciever
     {
         if (ProcessHandler.NextAction(client.Id, message))
         {
-            PriorityEventHandler.Invoke(new LogMessage("Вызвался метод ClientWrited / MessageReciever"));
         }
     }
 

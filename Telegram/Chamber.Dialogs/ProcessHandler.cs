@@ -1,5 +1,6 @@
 ﻿using Chamber.Collections;
 using Chamber.Dialogs;
+using Chamber.Log;
 using Events;
 using Events.Args;
 using Telegram.Bot.Types;
@@ -8,7 +9,7 @@ namespace Chamber.Support.Types;
 
 public static class ProcessHandler
 {
-    private static readonly ExecutingProcessCollection? _processes;
+    private static readonly ExecutingProcessCollection? _processes = new();
     public static ExecutingProcessCollection Processec
     {
         get
@@ -26,21 +27,14 @@ public static class ProcessHandler
 
         try
         {
-            ExecutingProcess? executingProcess = Processec.Find(i => i.Id == id);
+            TerminateProcess(id);
 
-            if (executingProcess == null)
-            {
-                executingProcess = new(id, process);
-                Processec.Add(executingProcess);
-            }
-            else
-            {
-                executingProcess.StartProcess = process;
-            }
+            ExecutingProcess executingProcess = new(id, process);
+
+            Processec.Add(executingProcess);
+
             executingProcess.Start();
-
             Processec.Refresh();
-            PriorityEventHandler.Invoke(new LogMessage("Refreshed"));
         }
         catch (Exception ex)
         {
@@ -65,6 +59,7 @@ public static class ProcessHandler
             if (process != null)
             {
                 process.NextAction(message);
+                Logger.LogMessage($"Next action, process handler, dialog {process.StartProcess.GetType().Name}");
                 Processec.Refresh();
             }
 
@@ -78,7 +73,7 @@ public static class ProcessHandler
     }
 
 
-    public static void StopProcess(long id)
+    public static void TerminateProcess(long id)
     {
         if (Processec.Contains(id))
         {

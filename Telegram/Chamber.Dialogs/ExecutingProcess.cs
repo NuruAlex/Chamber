@@ -1,5 +1,4 @@
 ﻿using Chamber.Core;
-using Chamber.Support.Types;
 using Events;
 using Events.Args;
 using Telegram.Bot.Types;
@@ -7,9 +6,14 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs;
 
 [Serializable]
-public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId)
+public class ExecutingProcess : BaseEntity
 {
-    public IProcess StartProcess { get; set; } = process;
+    public IProcess StartProcess { get; set; }
+
+    public ExecutingProcess(long chatId, IProcess process) : base(chatId)
+    {
+        StartProcess = process;
+    }
 
     public void Start()
     {
@@ -18,18 +22,18 @@ public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId
 
     public void NextAction(Message message)
     {
-        if (message == null)
+        try
         {
-            return;
+            if (StartProcess is IOneActProcess oneActProcess)
+            {
+                oneActProcess.NextAction(message);
+                PriorityEventHandler.Invoke(new LogMessage("ExecutingProcess / NextAction"));
+            }
+        }
+        catch (Exception ex)
+        {
+            PriorityEventHandler.Invoke(new ErrorArgs(ex));
         }
 
-        if (StartProcess == null || StartProcess is not IOneActProcess process)
-        {
-            return;
-        }
-
-        PriorityEventHandler.Invoke(new LogMessage("ExecutingProcess / NextAction"));
-        process.NextAction(message);
-        ProcessHandler.Processec.Refresh();
     }
 }
