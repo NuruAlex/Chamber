@@ -2,6 +2,7 @@
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
 using Chamber.Log;
+using Chamber.Support.Types;
 using Events;
 using Events.Args;
 using Messages.Building;
@@ -87,6 +88,7 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
                    {
                        Markup = new RemoveMarkup()
                    }));
+            ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
         }
 
     }

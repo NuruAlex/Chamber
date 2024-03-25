@@ -5,11 +5,11 @@ using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs.FieldRequestDialog;
 
-
-public class RequireOldBlankNumber(Client client) : IDataProcess
+[Serializable]
+public class RequireOldBlankNumber(Client client) : IRequireDataProcess
 {
     public long OldBlankNumber { get; set; }
-    public bool WasDone { get; set; }
+    public bool WasDone { get; set; } = false;
     public Client Client { get; set; } = client;
 
     public async void NextAction(Message message)
@@ -32,6 +32,5 @@ public class RequireOldBlankNumber(Client client) : IDataProcess
     public async void Start()
     {
         await Sender.SendMessage(new TextMessage(Client.Id, "Введите старый номер бланка"));
-        WasDone = false;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Chamber.Dialogs.FieldRequestDialog;
 
-public interface IDataProcess : IOneActProcess
+public interface IRequireDataProcess : IOneActProcess
 {
     bool WasDone { get; set; }
 }

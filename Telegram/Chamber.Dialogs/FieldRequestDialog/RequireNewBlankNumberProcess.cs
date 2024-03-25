@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [Serializable]
-public class RequireNewBlankNumberProcess(Client client) : IDataProcess
+public class RequireNewBlankNumberProcess(Client client) : IRequireDataProcess
 {
     public Client Client { get; set; } = client;
     public bool WasDone { get; set; }

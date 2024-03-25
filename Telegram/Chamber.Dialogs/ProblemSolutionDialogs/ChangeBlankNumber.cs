@@ -11,20 +11,21 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 [Serializable]
-public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
+public class ChangeBlankNumber(Client client) : ISolutionProcess
 {
     public Client Client { get; set; } = client;
+
     public List<IRequireDataProcess> Processes { get; set; } =
     [
         new RequireRequestNumberProcess(client),
-        new RequireNewSetrificateNumber(client)
+        new RequireOldBlankNumber(client),
+        new RequireNewBlankNumberProcess(client)
     ];
 
+    public long? RequestNumber { get; set; }
+    public long? OldBlankNumber { get; set; }
+    public long? NewBlankNumber { get; set; }
     public int Iteration { get; set; }
-
-    public long NewSetrificateNumber { get; set; }
-
-    public long RequestNumber { get; set; }
 
     public async void NextAction(Message message)
     {
@@ -48,22 +49,27 @@ public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
 
         if (Iteration == 1)
         {
-            NewSetrificateNumber = ((RequireNewSetrificateNumber)Processes[Iteration]).NewCertificateNumber;
+            OldBlankNumber = ((RequireOldBlankNumber)Processes[Iteration]).OldBlankNumber;
+            Iteration++;
+            Processes[Iteration].Start();
+            return;
+        }
 
+        if (Iteration == 2)
+        {
+            NewBlankNumber = ((RequireNewBlankNumberProcess)Processes[Iteration]).NewBlankBumber;
 
             int requestId = DataBase.Requests.Count + 1;
 
             BotRequest request = new(requestId, Client)
             {
-                NewCertificate = NewSetrificateNumber,
-                RequestId = RequestNumber
+                RequestId = RequestNumber,
+                OldBlank = OldBlankNumber,
+                NewBlank = NewBlankNumber,
             };
+
             DataBase.Requests.Add(request);
-
-            await Sender.SendMessage(
-                new TextMessage(Client.Id,
-                    "Спасибо за обращение, введенные вами данные отправлены специалисту на обработку"));
-
+            await Sender.SendMessage(new TextMessage(Client.Id, "Обращение отправлено на обработку"));
             ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
         }
     }

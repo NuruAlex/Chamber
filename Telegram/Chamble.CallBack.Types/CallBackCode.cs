@@ -5,7 +5,6 @@ public enum CallBackCode
     Ingnore,
     GetProblemType,
     NonTypeProblem,
-    ItHelped,
     PrintProblemTypes,
     ClientMainMenu,
     GetSolution,

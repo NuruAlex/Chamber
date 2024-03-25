@@ -12,7 +12,8 @@ public static class SolutionArchieve
     {
         _solutionDialogs = new()
         {
-            { "Заменить н с", new ChangeSertificateNumberProcess(client) },
+            { "Заменить № сертифика", new ChangeSertificateNumberProcess(client) },
+            { "Заменить № бланка", new ChangeBlankNumber(client) },
         };
     }
 

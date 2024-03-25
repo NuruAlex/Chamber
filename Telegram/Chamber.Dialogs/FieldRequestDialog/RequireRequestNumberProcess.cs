@@ -6,8 +6,8 @@ using Telegram.Bot.Types;
 
 namespace Chamber.Dialogs.FieldRequestDialog;
 
-[JsonObject]
-public class RequireRequestNumberProcess(Client client) : IDataProcess
+[Serializable]
+public class RequireRequestNumberProcess(Client client) : IRequireDataProcess
 {
     [JsonProperty]
     public long RequestNumber { get; set; }

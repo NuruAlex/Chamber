@@ -4,5 +4,5 @@ namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 public interface ISolutionProcess : IMultiActProcess
 {
-    List<IDataProcess> Processes { get; set; }
+    List<IRequireDataProcess> Processes { get; set; }
 }

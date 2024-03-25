@@ -6,7 +6,7 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.FieldRequestDialog;
 
 [Serializable]
-public class RequeireOldCertificateNumber(Client client) : IDataProcess
+public class RequeireOldCertificateNumber(Client client) : IRequireDataProcess
 {
     public Client Client { get; set; } = client;
     public long OldCertificateeNumber { get; set; }

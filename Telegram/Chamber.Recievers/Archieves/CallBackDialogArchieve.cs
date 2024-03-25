@@ -17,7 +17,6 @@ public static class CallBackDialogArchieve
         {
             { CallBackCode.NonTypeProblem,new CreateHumanRequestProcess(client) },
             { CallBackCode.GetSolution,   new GetProblemSolutionDialog(client, packet.SendData) },
-            { CallBackCode.ItHelped, new CreateBotRequestProcess(client, packet.SendData) },
             { CallBackCode.PrintProblemTypes,new PrintProblemsProcess(client) },
             { CallBackCode.ClientMainMenu, new PrintMainMenuDialog(client) },
         };
