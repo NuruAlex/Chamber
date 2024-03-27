@@ -5,7 +5,7 @@ using Messages.Core.Reply.Markups;
 using Messages.Core.Types;
 using Messages.Senders;
 
-namespace Chamber.Dialogs.ClientDialogs;
+namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
 public class PrintMainMenuDialog(Client client) : IProcess

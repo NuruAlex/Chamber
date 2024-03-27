@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Chamber.Core.Users;
+﻿namespace Chamber.Core.Users;
 
 [Serializable]
 public abstract class TelegramUser(long chatId, string phone) : BaseEntity(chatId)

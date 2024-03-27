@@ -1,14 +1,14 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
-using Chamber.Dialogs.ClientDialogs;
-using Chamber.Dialogs.FieldRequestDialog;
+using Chamber.Processes.ClientDialogs;
+using Chamber.Processes.FieldRequestProcesses;
 using Chamber.Support.Types;
 using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
 
-namespace Chamber.Dialogs.ProblemSolutionDialogs;
+namespace Chamber.Processes.ProblemSolutionDialogs;
 
 [Serializable]
 public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> processes) : ISolutionProcess

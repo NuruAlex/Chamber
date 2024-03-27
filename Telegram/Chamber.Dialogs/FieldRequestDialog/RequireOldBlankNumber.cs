@@ -3,30 +3,27 @@ using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
+using Chamber.Processes.ValidationProcesses;
 
-namespace Chamber.Dialogs.FieldRequestDialog;
+namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
 public class RequireOldBlankNumber(Client client) : IRequireDataProcess
 {
-    public long OldBlankNumber { get; set; }
+    public string? OldBlankNumber { get; set; }
     public bool WasDone { get; set; } = false;
     public Client Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
-        if (message.Text == null)
+        if (!new ValidateBlankProcess().IsValid(message))
         {
             await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите старый номер бланка:"));
             return;
         }
-        if (!long.TryParse(message.Text, out var number))
-        {
-            await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, номер сертификата должен быть числом:"));
-            return;
-        }
+        
 
-        OldBlankNumber = number;
+        OldBlankNumber = message.Text;
         WasDone = true;
     }
 

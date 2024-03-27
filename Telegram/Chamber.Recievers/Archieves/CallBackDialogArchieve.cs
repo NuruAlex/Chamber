@@ -1,7 +1,7 @@
 ﻿using Chamber.CallBack.Types;
 using Chamber.Core.Users;
-using Chamber.Dialogs;
-using Chamber.Dialogs.ClientDialogs;
+using Chamber.Processes;
+using Chamber.Processes.ClientDialogs;
 using Events;
 using Events.Args;
 

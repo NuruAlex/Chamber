@@ -1,13 +1,13 @@
 ﻿using Chamber.CallBack.Types;
 using Chamber.Core.Users;
-using Chamber.Dialogs.ProblemSolutionDialogs;
+using Chamber.Processes.ProblemSolutionDialogs;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
 using Messages.Core.Reply.Rows;
 using Messages.Core.Types;
 using Messages.Senders;
 
-namespace Chamber.Dialogs.ClientDialogs;
+namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
 public class PrintProblemsProcess(Client client) : IProcess

@@ -1,38 +1,28 @@
 ﻿using Chamber.Core.Requests;
 using Chamber.Core.Users;
+using Chamber.Processes.ValidationProcesses;
 using Messages.Core.Types;
 using Messages.Senders;
-using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
-namespace Chamber.Dialogs.FieldRequestDialog;
+namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
-public class RequireNewSetrificateNumber(Client client) : IRequireDataProcess
+public class RequireNewCetrificateNumberProcess(Client client) : IRequireDataProcess
 {
-
-    [JsonProperty]
-    public long NewCertificateNumber { get; set; }
-
-    [JsonProperty]
+    public string? NewCertificateNumber { get; set; }
     public bool WasDone { get; set; } = false;
     public Client Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
-
-        if (message.Text == null)
+        if (!new ValidateCertificateProcess().IsValid(message))
         {
             await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, введите новый номер сертификата"));
             return;
         }
-        if (!long.TryParse(message.Text, out var number))
-        {
-            await Sender.SendMessage(new TextMessage(Client.Id, "Кажется произошла ошибка, номер сертификата должен быть числом:"));
-            return;
-        }
 
-        NewCertificateNumber = number;
+        NewCertificateNumber = message.Text;
         WasDone = true;
     }
 
@@ -45,6 +35,5 @@ public class RequireNewSetrificateNumber(Client client) : IRequireDataProcess
     public async void Start()
     {
         await Sender.SendMessage(new TextMessage(Client.Id, "Введите новый номер сертификата:"));
-        WasDone = false;
     }
 }

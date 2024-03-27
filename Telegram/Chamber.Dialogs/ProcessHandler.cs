@@ -1,6 +1,5 @@
 ﻿using Chamber.Collections;
-using Chamber.Dialogs;
-using Chamber.Log;
+using Chamber.Processes;
 using Events;
 using Events.Args;
 using Telegram.Bot.Types;
@@ -59,7 +58,6 @@ public static class ProcessHandler
             if (process != null)
             {
                 process.NextAction(message);
-                Logger.LogMessage($"Next action, process handler, dialog {process.StartProcess.GetType().Name}");
                 Processec.Refresh();
             }
 

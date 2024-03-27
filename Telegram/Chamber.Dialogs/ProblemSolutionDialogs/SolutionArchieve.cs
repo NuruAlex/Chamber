@@ -1,9 +1,9 @@
 ﻿using Chamber.Core.Users;
-using Chamber.Dialogs.FieldRequestDialog;
+using Chamber.Processes.FieldRequestProcesses;
 using Events;
 using Events.Args;
 
-namespace Chamber.Dialogs.ProblemSolutionDialogs;
+namespace Chamber.Processes.ProblemSolutionDialogs;
 
 public static class SolutionArchieve
 {
@@ -15,7 +15,7 @@ public static class SolutionArchieve
         {
             { "Заменить № сертифика", [
                 new RequireRequestNumberProcess(client),
-                new RequireNewSetrificateNumber(client)]
+                new RequireNewCetrificateNumberProcess(client)]
             },
             { "Заменить № бланка", [
                 new RequireRequestNumberProcess(client),

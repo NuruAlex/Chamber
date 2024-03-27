@@ -3,7 +3,7 @@ using Events;
 using Events.Args;
 using Telegram.Bot.Types;
 
-namespace Chamber.Dialogs;
+namespace Chamber.Processes;
 
 [Serializable]
 public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId)

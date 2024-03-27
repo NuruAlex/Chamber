@@ -1,6 +1,6 @@
 ﻿using Chamber.Core.Requests;
 
-namespace Chamber.Dialogs.FieldRequestDialog;
+namespace Chamber.Processes.FieldRequestProcesses;
 
 public interface IRequireDataProcess : IOneActProcess
 {

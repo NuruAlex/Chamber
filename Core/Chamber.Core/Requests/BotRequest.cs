@@ -5,11 +5,11 @@ namespace Chamber.Core.Requests;
 [Serializable]
 public class BotRequest(long id, Client client) : Request(id, client)
 {
-    public long? RequestId { get; set; }
-    public long? OldCertificate { get; set; }
-    public long? NewCertificate { get; set; }
-    public long? OldBlank { get; set; }
-    public long? NewBlank { get; set; }
+    public string? RequestId { get; set; }
+    public string? OldCertificate { get; set; }
+    public string? NewCertificate { get; set; }
+    public string? OldBlank { get; set; }
+    public string? NewBlank { get; set; }
 
     public override string ToText()
     {

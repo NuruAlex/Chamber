@@ -1,9 +1,9 @@
 ﻿using Chamber.Core.Users;
-using Chamber.Dialogs.FieldRequestDialog;
-using Chamber.Dialogs.ProblemSolutionDialogs;
+using Chamber.Processes.FieldRequestProcesses;
+using Chamber.Processes.ProblemSolutionDialogs;
 using Chamber.Support.Types;
 
-namespace Chamber.Dialogs.ClientDialogs;
+namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
 public class GetProblemSolutionDialog(Client client, string problemTitle) : IProcess

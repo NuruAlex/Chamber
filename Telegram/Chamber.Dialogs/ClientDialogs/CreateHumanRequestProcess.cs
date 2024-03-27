@@ -1,7 +1,6 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
-using Chamber.Log;
 using Chamber.Support.Types;
 using Events;
 using Events.Args;
@@ -12,7 +11,7 @@ using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
 
-namespace Chamber.Dialogs.ClientDialogs;
+namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
 public class CreateHumanRequestProcess(Client client) : IMultiActProcess
@@ -61,7 +60,6 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
                 if (await Builder.BuildLocalMessage(Client.Id, message) is PhotoMessage photo)
                 {
                     FilePath = photo.Media?.Path;
-                    Logger.LogMessage($"{photo.Media?.Path}");
                 }
             }
             else

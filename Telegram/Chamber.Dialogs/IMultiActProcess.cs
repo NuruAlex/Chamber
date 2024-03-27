@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Chamber.Dialogs;
+namespace Chamber.Processes;
 
 [JsonObject]
 public interface IMultiActProcess : IOneActProcess

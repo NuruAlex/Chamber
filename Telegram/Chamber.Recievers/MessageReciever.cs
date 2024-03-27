@@ -1,6 +1,6 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Users;
-using Chamber.Dialogs.ClientDialogs;
+using Chamber.Processes.ClientDialogs;
 using Chamber.Recievers.Args;
 using Chamber.Support.Types;
 using Events;
@@ -9,7 +9,6 @@ using Messages.Core.Types;
 using Messages.Handling;
 using Messages.Handling.Args;
 using Messages.Senders;
-using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace Chamber.Recievers;

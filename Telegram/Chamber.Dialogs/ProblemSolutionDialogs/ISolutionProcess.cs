@@ -1,6 +1,6 @@
-﻿using Chamber.Dialogs.FieldRequestDialog;
+﻿using Chamber.Processes.FieldRequestProcesses;
 
-namespace Chamber.Dialogs.ProblemSolutionDialogs;
+namespace Chamber.Processes.ProblemSolutionDialogs;
 
 public interface ISolutionProcess : IMultiActProcess
 {
