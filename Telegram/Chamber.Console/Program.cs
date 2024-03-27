@@ -17,7 +17,6 @@ MediaPathArchieve.AddStandartPath<Voice>("Voices\\");
 MediaPathArchieve.AddStandartPath<Audio>("Audios\\");
 MediaPathArchieve.AddStandartPath<PhotoSize>("Photos\\");
 MediaPathArchieve.AddStandartPath<VideoNote>("VideoNotes\\");
-
 BotOptions options = new("test", "7063265373:AAFbiaDrVvV-ozMT5v5Q0l6ZtUievH9iHBA");
 
 Builder.SetOptions(options);
@@ -26,7 +25,6 @@ Sender.SetOptions(options);
 MessageDeleter.SetOptions(options);
 
 Resiever.StartRecieving();
-
 
 
 Console.ReadLine();

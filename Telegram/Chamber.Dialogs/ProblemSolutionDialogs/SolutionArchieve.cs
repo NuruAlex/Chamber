@@ -1,4 +1,5 @@
 ﻿using Chamber.Core.Users;
+using Chamber.Dialogs.FieldRequestDialog;
 using Events;
 using Events.Args;
 
@@ -6,14 +7,21 @@ namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 public static class SolutionArchieve
 {
-    private static Dictionary<string, ISolutionProcess> _solutionDialogs = [];
+    private static Dictionary<string, List<IRequireDataProcess>> _solutionDialogs = [];
 
     private static void Update(Client client)
     {
         _solutionDialogs = new()
         {
-            { "Заменить № сертифика", new ChangeSertificateNumberProcess(client) },
-            { "Заменить № бланка", new ChangeBlankNumber(client) },
+            { "Заменить № сертифика", [
+                new RequireRequestNumberProcess(client),
+                new RequireNewSetrificateNumber(client)]
+            },
+            { "Заменить № бланка", [
+                new RequireRequestNumberProcess(client),
+                new RequireOldBlankNumber(client),
+                new RequireNewBlankNumberProcess(client)]
+            },
         };
     }
 
@@ -24,7 +32,7 @@ public static class SolutionArchieve
         return [.. _solutionDialogs.Keys];
     }
 
-    public static ISolutionProcess? GetSolution(Client client, string problemName)
+    public static List<IRequireDataProcess>? GetSolutionProcesses(Client client, string problemName)
     {
         Update(client);
 

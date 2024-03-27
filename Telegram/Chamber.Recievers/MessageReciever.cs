@@ -1,7 +1,6 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Users;
 using Chamber.Dialogs.ClientDialogs;
-using Chamber.Log;
 using Chamber.Recievers.Args;
 using Chamber.Support.Types;
 using Events;
@@ -10,6 +9,7 @@ using Messages.Core.Types;
 using Messages.Handling;
 using Messages.Handling.Args;
 using Messages.Senders;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace Chamber.Recievers;
@@ -43,10 +43,9 @@ public static class MessageReciever
             {
                 Markup = new RemoveMarkup()
             });
+            Thread.Sleep(2000);
 
-            /*  Thread.Sleep(1000);
-
-              MessageDeleter.DeleteMessage(chat, id);*/
+            MessageDeleter.DeleteMessage(chat, id);
 
             new PrintMainMenuDialog(client).Start();
         }
@@ -62,7 +61,6 @@ public static class MessageReciever
     private static void OnMessage(MessageRecievedArgs args)
     {
         _message = args.Message;
-
         _user = DataBase.Users.Find(i => i.Id == _message.Chat.Id);
 
         if (_user != null)
@@ -93,17 +91,21 @@ public static class MessageReciever
         {
             if (_user != null && _user is Client client)
             {
-                int id = await Sender.SendMessage(new TextMessage(client.Id, "Вы уже зарегистрированы"));
+                int id = await Sender.SendMessage(new TextMessage(client.Id, "Вы уже зарегистрированы")
+                {
+                    Markup = new RemoveMarkup()
+                });
                 Thread.Sleep(1000);
                 MessageDeleter.DeleteMessage(chat, id);
+                ProcessHandler.Run(client.Id, new PrintMainMenuDialog(client));
+                return;
             }
 
             await Sender.SendMessage(new TextMessage(args.ChatId, "Добрый день, отправьте пожалйста контакты")
             {
-                Markup = new RequestContactMarkup("Отправить")
+                Markup = new RequestContactMarkup("Отправить контакты")
             });
 
-            return;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Chamber.Core.Users;
+﻿using Chamber.Core.Requests;
+using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
 using Newtonsoft.Json;
@@ -32,6 +33,12 @@ public class RequireRequestNumberProcess(Client client) : IRequireDataProcess
 
         RequestNumber = number;
         WasDone = true;
+    }
+
+    public BotRequest SetSpecificValue(BotRequest request)
+    {
+        request.RequestId = RequestNumber;
+        return request.Copy();
     }
 
     public async void Start()

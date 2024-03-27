@@ -1,4 +1,5 @@
 ﻿using Chamber.Core.Users;
+using Chamber.Dialogs.FieldRequestDialog;
 using Chamber.Dialogs.ProblemSolutionDialogs;
 using Chamber.Support.Types;
 
@@ -12,13 +13,13 @@ public class GetProblemSolutionDialog(Client client, string problemTitle) : IPro
 
     public void Start()
     {
-        ISolutionProcess? solutionProcess = SolutionArchieve.GetSolution(Client, ProblemType);
+        List<IRequireDataProcess>? solutionProcess = SolutionArchieve.GetSolutionProcesses(Client, ProblemType);
 
-        if (solutionProcess == null)
+        if (solutionProcess == null || solutionProcess.Count == 0)
         {
             return;
         }
 
-        ProcessHandler.Run(Client.Id, solutionProcess);
+        ProcessHandler.Run(Client.Id, new ExecutingSolutionProcess(Client, solutionProcess));
     }
 }

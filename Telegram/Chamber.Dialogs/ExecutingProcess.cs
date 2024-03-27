@@ -6,14 +6,9 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs;
 
 [Serializable]
-public class ExecutingProcess : BaseEntity
+public class ExecutingProcess(long chatId, IProcess process) : BaseEntity(chatId)
 {
-    public IProcess StartProcess { get; set; }
-
-    public ExecutingProcess(long chatId, IProcess process) : base(chatId)
-    {
-        StartProcess = process;
-    }
+    public IProcess StartProcess { get; set; } = process;
 
     public void Start()
     {
@@ -35,5 +30,10 @@ public class ExecutingProcess : BaseEntity
             PriorityEventHandler.Invoke(new ErrorArgs(ex));
         }
 
+    }
+
+    public override string ToText()
+    {
+        throw new NotImplementedException();
     }
 }

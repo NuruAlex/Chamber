@@ -1,4 +1,5 @@
-﻿using Chamber.Core.Users;
+﻿using Chamber.Core.Requests;
+using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
 using Newtonsoft.Json;
@@ -33,6 +34,12 @@ public class RequireNewSetrificateNumber(Client client) : IRequireDataProcess
 
         NewCertificateNumber = number;
         WasDone = true;
+    }
+
+    public BotRequest SetSpecificValue(BotRequest request)
+    {
+        request.NewCertificate = NewCertificateNumber;
+        return request.Copy();
     }
 
     public async void Start()

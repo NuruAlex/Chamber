@@ -11,20 +11,14 @@ using Telegram.Bot.Types;
 namespace Chamber.Dialogs.ProblemSolutionDialogs;
 
 [Serializable]
-public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
+public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> processes) : ISolutionProcess
 {
-    public Client Client { get; set; } = client;
-    public List<IRequireDataProcess> Processes { get; set; } =
-    [
-        new RequireRequestNumberProcess(client),
-        new RequireNewSetrificateNumber(client)
-    ];
+    public List<IRequireDataProcess> Processes { get; set; } = processes;
+    public Client Client { get; } = client;
 
-    public int Iteration { get; set; }
+    public int Iteration { get; set; } = 0;
 
-    public long NewSetrificateNumber { get; set; }
-
-    public long RequestNumber { get; set; }
+    public BotRequest BotRequest { get; set; } = new(DataBase.Requests.Count + 1, client);
 
     public async void NextAction(Message message)
     {
@@ -38,27 +32,23 @@ public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
             return;
         }
 
-        if (Iteration == 0)
+        if (Iteration <= Processes.Count - 1)
         {
-            RequestNumber = ((RequireRequestNumberProcess)Processes[Iteration]).RequestNumber;
+            BotRequest = Processes[Iteration].SetSpecificValue(BotRequest);
+        }
+
+        if (Iteration < Processes.Count - 1)
+        {
             Iteration++;
             Processes[Iteration].Start();
             return;
+
         }
 
-        if (Iteration == 1)
+        if (Iteration == Processes.Count - 1)
         {
-            NewSetrificateNumber = ((RequireNewSetrificateNumber)Processes[Iteration]).NewCertificateNumber;
-
-
-            int requestId = DataBase.Requests.Count + 1;
-
-            BotRequest request = new(requestId, Client)
-            {
-                NewCertificate = NewSetrificateNumber,
-                RequestId = RequestNumber
-            };
-            DataBase.Requests.Add(request);
+            BotRequest.Id = DataBase.Requests.Count + 1;
+            DataBase.Requests.Add(BotRequest);
 
             await Sender.SendMessage(
                 new TextMessage(Client.Id,
@@ -68,8 +58,14 @@ public class ChangeSertificateNumberProcess(Client client) : ISolutionProcess
         }
     }
 
-    public void Start()
+    public async void Start()
     {
+        if (Processes.Count == 0)
+        {
+            await Sender.SendMessage(new TextMessage(Client.Id, "Процессы не найдены"));
+            ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
+        }
+
         Processes[Iteration].Start();
     }
 }

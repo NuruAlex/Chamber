@@ -2,9 +2,13 @@
 
 namespace Chamber.Core.Users;
 
-[JsonObject]
+[Serializable]
 public abstract class TelegramUser(long chatId, string phone) : BaseEntity(chatId)
 {
-    [JsonProperty(nameof(Phone))]
     public string Phone { get; set; } = phone;
+
+    public override string ToText()
+    {
+        return $"UserId: {Id}, Phone: {Phone}";
+    }
 }

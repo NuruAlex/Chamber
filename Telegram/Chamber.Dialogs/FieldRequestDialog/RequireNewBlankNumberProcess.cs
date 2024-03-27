@@ -1,4 +1,5 @@
-﻿using Chamber.Core.Users;
+﻿using Chamber.Core.Requests;
+using Chamber.Core.Users;
 using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
@@ -10,7 +11,7 @@ public class RequireNewBlankNumberProcess(Client client) : IRequireDataProcess
 {
     public Client Client { get; set; } = client;
     public bool WasDone { get; set; }
-    public long NewBlankBumber { get; set; }
+    public long NewBlankNumber { get; set; }
 
     public async void NextAction(Message message)
     {
@@ -25,8 +26,14 @@ public class RequireNewBlankNumberProcess(Client client) : IRequireDataProcess
             return;
         }
 
-        NewBlankBumber = number;
+        NewBlankNumber = number;
         WasDone = true;
+    }
+
+    public BotRequest SetSpecificValue(BotRequest request)
+    {
+        request.NewBlank = NewBlankNumber;
+        return request.Copy();
     }
 
     public async void Start()
