@@ -1,9 +1,8 @@
 ﻿using Chamber.Collections;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
+using Chamber.Dialogs.Main;
 using Chamber.Support.Types;
-using Events;
-using Events.Args;
 using Messages.Building;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
@@ -51,10 +50,10 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
 
         if (Iteration == 1)
         {
-
             if (message.Text?.ToLower() == "пропустить")
             {
             }
+
             else if (message.Photo != null)
             {
                 if (await Builder.BuildLocalMessage(Client.Id, message) is PhotoMessage photo)
@@ -70,9 +69,8 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
                 return;
             }
 
-            int requestId = DataBase.Requests.Count + 1;
 
-            HumanRequest request = new(requestId, Client)
+            HumanRequest request = new(DataBase.Requests.Count + 1, Client, "Не типовая")
             {
                 Description = Description,
                 FilePath = FilePath,
@@ -81,11 +79,13 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
 
             DataBase.Requests.Add(request);
 
-            Messages.Add(await Sender
-                   .SendMessage(new TextMessage(Client.Id, $"Ваше обращение зарегестрировано\nНомер обращения: {requestId} ")
-                   {
-                       Markup = new RemoveMarkup()
-                   }));
+            Messages.Add(await Sender.SendMessage(
+                new TextMessage(Client.Id,
+                    "Спасибо за обращение, введенные вами данные отправлены специалисту на обработку")
+                {
+                    Markup = new RemoveMarkup()
+                }));
+
             ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
         }
 
@@ -93,14 +93,7 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
 
     public async void Start()
     {
-        try
-        {
-            Messages.Add(await Sender
-                .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
-        }
-        catch (Exception ex)
-        {
-            PriorityEventHandler.Invoke(new ErrorArgs(ex));
-        }
+        Messages.Add(await Sender
+            .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
     }
 }

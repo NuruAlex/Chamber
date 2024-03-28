@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
-namespace Chamber.Processes;
+namespace Chamber.Dialogs.Main;
 
 [JsonObject]
 public interface IOneActProcess : IProcess

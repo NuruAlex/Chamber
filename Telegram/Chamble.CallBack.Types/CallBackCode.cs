@@ -8,4 +8,6 @@ public enum CallBackCode
     PrintProblemTypes,
     ClientMainMenu,
     GetSolution,
+    MyRequests,
+    GetRequest
 }

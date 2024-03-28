@@ -1,4 +1,4 @@
-﻿namespace Chamber.Processes;
+﻿namespace Chamber.Dialogs.Main;
 
 [Serializable]
 public class UnknownProcess : IProcess

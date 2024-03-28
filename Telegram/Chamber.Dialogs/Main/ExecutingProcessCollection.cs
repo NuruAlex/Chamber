@@ -1,6 +1,6 @@
-﻿using Chamber.Processes;
+﻿using Chamber.Collections;
 
-namespace Chamber.Collections;
+namespace Chamber.Dialogs.Main;
 
 public class ExecutingProcessCollection : UniqeCollection<ExecutingProcess>
 {

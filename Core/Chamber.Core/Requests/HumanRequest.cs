@@ -3,16 +3,13 @@
 namespace Chamber.Core.Requests;
 
 [Serializable]
-public class HumanRequest(long id, Client client) : Request(id, client)
+public class HumanRequest(long id, Client client, string name) : Request(id, client, name)
 {
-    public DateTime? DoneTime { get; set; }
-    public int Level { get; set; }
-
     public string? Description { get; set; }
     public string? FilePath { get; set; }
 
     public override string ToText()
     {
-        throw new NotImplementedException();
+        return $"Описание проблемы: {Description}";
     }
 }

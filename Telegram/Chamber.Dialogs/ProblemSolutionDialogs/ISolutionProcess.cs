@@ -1,4 +1,5 @@
-﻿using Chamber.Processes.FieldRequestProcesses;
+﻿using Chamber.Dialogs.Main;
+using Chamber.Processes.FieldRequestProcesses;
 
 namespace Chamber.Processes.ProblemSolutionDialogs;
 

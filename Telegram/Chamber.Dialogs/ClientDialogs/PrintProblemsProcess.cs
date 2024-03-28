@@ -1,5 +1,6 @@
 ﻿using Chamber.CallBack.Types;
 using Chamber.Core.Users;
+using Chamber.Dialogs.Main;
 using Chamber.Processes.ProblemSolutionDialogs;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;

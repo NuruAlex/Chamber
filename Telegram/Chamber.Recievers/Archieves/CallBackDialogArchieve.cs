@@ -1,6 +1,7 @@
 ﻿using Chamber.CallBack.Types;
 using Chamber.Core.Users;
-using Chamber.Processes;
+using Chamber.Dialogs.ClientDialogs;
+using Chamber.Dialogs.Main;
 using Chamber.Processes.ClientDialogs;
 using Events;
 using Events.Args;
@@ -19,6 +20,8 @@ public static class CallBackDialogArchieve
             { CallBackCode.GetSolution,   new GetProblemSolutionDialog(client, packet.SendData) },
             { CallBackCode.PrintProblemTypes,new PrintProblemsProcess(client) },
             { CallBackCode.ClientMainMenu, new PrintMainMenuDialog(client) },
+            { CallBackCode.MyRequests, new PrintMyRequests(client) },
+            { CallBackCode.GetRequest, new PrintRequestDialog(client,packet.SendData) },
         };
     }
 

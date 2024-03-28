@@ -3,7 +3,7 @@
 namespace Chamber.Core.Requests;
 
 [Serializable]
-public class BotRequest(long id, Client client) : Request(id, client)
+public class BotRequest(long id, Client client, string name) : Request(id, client, name)
 {
     public string? RequestId { get; set; }
     public string? OldCertificate { get; set; }
@@ -40,19 +40,20 @@ public class BotRequest(long id, Client client) : Request(id, client)
             result += $"Новый номер бланка: {NewBlank}\n";
         }
 
+        result += Creation.ToString("yyyy-MM-dd hh:mm:ss");
+
         return result;
     }
 
     public BotRequest Copy()
     {
-        return new BotRequest(Id, Client)
+        return new BotRequest(Id,Client, Name)
         {
             RequestId = RequestId,
             OldCertificate = OldCertificate,
             NewCertificate = NewCertificate,
             OldBlank = OldBlank,
             NewBlank = NewBlank,
-
         };
     }
 }

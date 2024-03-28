@@ -1,5 +1,6 @@
 ﻿using Chamber.Log;
 using Chamber.Recievers;
+using Chamber.Recogrition;
 using Messages.Building;
 using Messages.Core.Types;
 using Messages.Handling;
@@ -9,7 +10,7 @@ using Telegram.Bot.Types;
 Logger.Init();
 MessageReciever.Init();
 CallBackReciever.Init();
-
+    
 MediaPathArchieve.InitialDirectory = "Resources\\Media";
 
 MediaPathArchieve.AddStandartPath<Video>("Videos\\");

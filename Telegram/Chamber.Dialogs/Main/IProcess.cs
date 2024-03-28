@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Chamber.Processes;
+namespace Chamber.Dialogs.Main;
 
 [JsonObject]
 public interface IProcess

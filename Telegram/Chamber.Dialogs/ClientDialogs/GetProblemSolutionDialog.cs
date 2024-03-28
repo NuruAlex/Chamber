@@ -1,4 +1,5 @@
 ﻿using Chamber.Core.Users;
+using Chamber.Dialogs.Main;
 using Chamber.Processes.FieldRequestProcesses;
 using Chamber.Processes.ProblemSolutionDialogs;
 using Chamber.Support.Types;
@@ -20,6 +21,6 @@ public class GetProblemSolutionDialog(Client client, string problemTitle) : IPro
             return;
         }
 
-        ProcessHandler.Run(Client.Id, new ExecutingSolutionProcess(Client, solutionProcess));
+        ProcessHandler.Run(Client.Id, new ExecutingSolutionProcess(Client, solutionProcess, ProblemType));
     }
 }

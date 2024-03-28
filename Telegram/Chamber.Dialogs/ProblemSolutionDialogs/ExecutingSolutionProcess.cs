@@ -11,14 +11,14 @@ using Telegram.Bot.Types;
 namespace Chamber.Processes.ProblemSolutionDialogs;
 
 [Serializable]
-public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> processes) : ISolutionProcess
+public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> processes, string problemTitle) : ISolutionProcess
 {
     public List<IRequireDataProcess> Processes { get; set; } = processes;
     public Client Client { get; } = client;
 
     public int Iteration { get; set; } = 0;
 
-    public BotRequest BotRequest { get; set; } = new(DataBase.Requests.Count + 1, client);
+    public BotRequest BotRequest { get; set; } = new(DataBase.Requests.Count + 1, client, problemTitle);
 
     public async void NextAction(Message message)
     {
@@ -47,7 +47,6 @@ public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> p
 
         if (Iteration == Processes.Count - 1)
         {
-            BotRequest.Id = DataBase.Requests.Count + 1;
             DataBase.Requests.Add(BotRequest);
 
             await Sender.SendMessage(
