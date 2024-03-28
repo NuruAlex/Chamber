@@ -3,7 +3,7 @@
 namespace Chamber.Core.Requests;
 
 [Serializable]
-public class BotRequest(long id, Client client, string name) : Request(id, client, name)
+public class BotRequest(long id, TelegramUser client, string name) : Request(id, client, name)
 {
     public string? RequestId { get; set; }
     public string? OldCertificate { get; set; }

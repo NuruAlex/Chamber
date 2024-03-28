@@ -21,16 +21,16 @@ public static class CallBackReciever
         PriorityEventHandler.Subscribe<CallBackRecievedArgs>(OnCallBack, 1);
     }
 
-    private static void OnClientCallBack(Client client, CallBackPacket packet)
+    private static void OnCallBack(TelegramUser user, CallBackPacket packet)
     {
-        IProcess process = CallBackDialogArchieve.GetClientProcess(client, packet);
+        IProcess process = CallBackDialogArchieve.GetProcess(user, packet);
 
         if (_message != null)
         {
             MessageDeleter.DeleteMessage(_message);
         }
 
-        ProcessHandler.Run(client.Id, process);
+        ProcessHandler.Run(user.Id, process);
     }
 
 
@@ -61,11 +61,6 @@ public static class CallBackReciever
             PriorityEventHandler.Invoke(new ErrorArgs(new Exception("user not found exception")));
             return;
         }
-
-        if (user is Client client)
-        {
-            OnClientCallBack(client, packet);
-        }
-
+        OnCallBack(user, packet);
     }
 }

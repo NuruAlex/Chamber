@@ -7,9 +7,9 @@ using Chamber.Support.Types;
 namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
-public class GetProblemSolutionDialog(Client client, string problemTitle) : IProcess
+public class GetProblemSolutionDialog(TelegramUser client, string problemTitle) : IProcess
 {
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
     public string ProblemType { get; set; } = problemTitle;
 
     public void Start()

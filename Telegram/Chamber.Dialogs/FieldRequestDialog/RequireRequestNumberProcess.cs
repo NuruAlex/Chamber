@@ -1,24 +1,22 @@
 ﻿using Chamber.Core.Requests;
 using Chamber.Core.Users;
 using Chamber.Processes.ValidationProcesses;
+using Chamber.Support.Types;
 using Messages.Core.Types;
 using Messages.Senders;
-using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
 
 namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
-public class RequireRequestNumberProcess(Client client) : IRequireDataProcess
+public class RequireRequestNumberProcess(TelegramUser client) : IRequireDataProcess
 {
-    [JsonProperty]
     public string? RequestNumber { get; set; }
 
-    [JsonProperty]
     public bool WasDone { get; set; } = false;
 
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
@@ -40,6 +38,11 @@ public class RequireRequestNumberProcess(Client client) : IRequireDataProcess
 
     public async void Start()
     {
+        if (Client.CurrentLevel != Core.Enums.UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
         await Sender.SendMessage(new TextMessage(Client.Id, "Введите номер заявки:"));
     }
 }

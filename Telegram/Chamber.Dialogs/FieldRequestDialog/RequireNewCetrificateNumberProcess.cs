@@ -1,6 +1,7 @@
 ﻿using Chamber.Core.Requests;
 using Chamber.Core.Users;
 using Chamber.Processes.ValidationProcesses;
+using Chamber.Support.Types;
 using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
@@ -8,11 +9,11 @@ using Telegram.Bot.Types;
 namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
-public class RequireNewCetrificateNumberProcess(Client client) : IRequireDataProcess
+public class RequireNewCetrificateNumberProcess(TelegramUser client) : IRequireDataProcess
 {
     public string? NewCertificateNumber { get; set; }
     public bool WasDone { get; set; } = false;
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
@@ -34,6 +35,12 @@ public class RequireNewCetrificateNumberProcess(Client client) : IRequireDataPro
 
     public async void Start()
     {
+        if (Client.CurrentLevel != Core.Enums.UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
+
         await Sender.SendMessage(new TextMessage(Client.Id, "Введите новый номер сертификата:"));
     }
 }

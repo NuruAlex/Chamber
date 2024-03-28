@@ -8,9 +8,9 @@ using Telegram.Bot.Types;
 namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
-public class RequireOldCertificateNumber(Client client) : IRequireDataProcess
+public class RequireOldCertificateNumber(TelegramUser client) : IRequireDataProcess
 {
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
     public string? OldCertificateeNumber { get; set; }
     public bool WasDone { get; set; }
 

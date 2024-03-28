@@ -1,4 +1,5 @@
 ﻿using Chamber.Collections;
+using Chamber.Core.Enums;
 using Chamber.Core.Requests;
 using Chamber.Core.Users;
 using Chamber.Dialogs.Main;
@@ -13,9 +14,9 @@ using Telegram.Bot.Types;
 namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
-public class CreateHumanRequestProcess(Client client) : IMultiActProcess
+public class CreateHumanRequestProcess(TelegramUser client) : IMultiActProcess
 {
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
     public int Iteration { get; set; } = -1;
 
     public List<int> Messages = [];
@@ -86,13 +87,19 @@ public class CreateHumanRequestProcess(Client client) : IMultiActProcess
                     Markup = new RemoveMarkup()
                 }));
 
-            ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
+            ProcessHandler.Run(Client.Id, new PrintClientMainMenuDialog(Client));
         }
 
     }
 
     public async void Start()
     {
+        if (client.CurrentLevel != UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
+
         Messages.Add(await Sender
             .SendMessage(new TextMessage(Client.Id, "Введите описание проблемы:")));
     }

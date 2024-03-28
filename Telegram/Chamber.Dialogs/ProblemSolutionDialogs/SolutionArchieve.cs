@@ -9,7 +9,7 @@ public static class SolutionArchieve
 {
     private static Dictionary<string, List<IRequireDataProcess>> _solutionDialogs = [];
 
-    private static void Update(Client client)
+    private static void Update(TelegramUser client)
     {
         _solutionDialogs = new()
         {
@@ -25,14 +25,14 @@ public static class SolutionArchieve
         };
     }
 
-    public static List<string> GetNames(Client client)
+    public static List<string> GetNames(TelegramUser client)
     {
         Update(client);
 
         return [.. _solutionDialogs.Keys];
     }
 
-    public static List<IRequireDataProcess>? GetSolutionProcesses(Client client, string problemName)
+    public static List<IRequireDataProcess>? GetSolutionProcesses(TelegramUser client, string problemName)
     {
         Update(client);
 

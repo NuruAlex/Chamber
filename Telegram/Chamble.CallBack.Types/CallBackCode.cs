@@ -6,8 +6,26 @@ public enum CallBackCode
     GetProblemType,
     NonTypeProblem,
     PrintProblemTypes,
-    ClientMainMenu,
+    MainMenu,
     GetSolution,
     MyRequests,
-    GetRequest
+    GetRequest,
+
+    PrintSpecialistRequests,
+
+    //lists
+    PrintClients,
+    PrintClient,
+
+    PrintSpesialists,
+    PrintSpecialist,
+   
+    PrintProgrammists,
+    PrintProgrammist,
+
+    PrintAdmins,
+    PrintAdmin,
+    MakeNewAdmin,
+    MakeNewSpecialist,
+    MakeNewProgrammist,
 }

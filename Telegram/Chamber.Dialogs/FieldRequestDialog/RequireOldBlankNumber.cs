@@ -4,15 +4,16 @@ using Messages.Core.Types;
 using Messages.Senders;
 using Telegram.Bot.Types;
 using Chamber.Processes.ValidationProcesses;
+using Chamber.Support.Types;
 
 namespace Chamber.Processes.FieldRequestProcesses;
 
 [Serializable]
-public class RequireOldBlankNumber(Client client) : IRequireDataProcess
+public class RequireOldBlankNumber(TelegramUser client) : IRequireDataProcess
 {
     public string? OldBlankNumber { get; set; }
     public bool WasDone { get; set; } = false;
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
 
     public async void NextAction(Message message)
     {
@@ -35,6 +36,12 @@ public class RequireOldBlankNumber(Client client) : IRequireDataProcess
 
     public async void Start()
     {
+        if (Client.CurrentLevel != Core.Enums.UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
+
         await Sender.SendMessage(new TextMessage(Client.Id, "Введите старый номер бланка"));
     }
 }

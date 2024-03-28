@@ -11,10 +11,10 @@ using Telegram.Bot.Types;
 namespace Chamber.Processes.ProblemSolutionDialogs;
 
 [Serializable]
-public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> processes, string problemTitle) : ISolutionProcess
+public class ExecutingSolutionProcess(TelegramUser client, List<IRequireDataProcess> processes, string problemTitle) : ISolutionProcess
 {
     public List<IRequireDataProcess> Processes { get; set; } = processes;
-    public Client Client { get; } = client;
+    public TelegramUser Client { get; } = client;
 
     public int Iteration { get; set; } = 0;
 
@@ -53,16 +53,22 @@ public class ExecutingSolutionProcess(Client client, List<IRequireDataProcess> p
                 new TextMessage(Client.Id,
                     "Спасибо за обращение, введенные вами данные отправлены специалисту на обработку"));
 
-            ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
+            ProcessHandler.Run(Client.Id, new PrintClientMainMenuDialog(Client));
         }
     }
 
     public async void Start()
     {
+        if (Client.CurrentLevel != Core.Enums.UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
+
         if (Processes.Count == 0)
         {
             await Sender.SendMessage(new TextMessage(Client.Id, "Процессы не найдены"));
-            ProcessHandler.Run(Client.Id, new PrintMainMenuDialog(Client));
+            ProcessHandler.Run(Client.Id, new PrintClientMainMenuDialog(Client));
         }
 
         Processes[Iteration].Start();

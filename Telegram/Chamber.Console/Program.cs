@@ -1,6 +1,8 @@
-﻿using Chamber.Log;
+﻿using Chamber.Collections;
+using Chamber.Core.Enums;
+using Chamber.Core.Users;
+using Chamber.Log;
 using Chamber.Recievers;
-using Chamber.Recogrition;
 using Messages.Building;
 using Messages.Core.Types;
 using Messages.Handling;
@@ -10,7 +12,7 @@ using Telegram.Bot.Types;
 Logger.Init();
 MessageReciever.Init();
 CallBackReciever.Init();
-    
+
 MediaPathArchieve.InitialDirectory = "Resources\\Media";
 
 MediaPathArchieve.AddStandartPath<Video>("Videos\\");
@@ -27,5 +29,6 @@ MessageDeleter.SetOptions(options);
 
 Resiever.StartRecieving();
 
+DataBase.Users.Add(new TelegramUser(5082579517, "79859338751", "Lekha", [UserLevel.Admin, UserLevel.Client]));
 
 Console.ReadLine();

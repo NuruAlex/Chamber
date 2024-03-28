@@ -2,6 +2,7 @@
 using Chamber.Core.Users;
 using Chamber.Dialogs.Main;
 using Chamber.Processes.ProblemSolutionDialogs;
+using Chamber.Support.Types;
 using Messages.Core.Reply.Buttons;
 using Messages.Core.Reply.Markups;
 using Messages.Core.Reply.Rows;
@@ -11,12 +12,19 @@ using Messages.Senders;
 namespace Chamber.Processes.ClientDialogs;
 
 [Serializable]
-public class PrintProblemsProcess(Client client) : IProcess
+public class PrintProblemsProcess(TelegramUser client) : IProcess
 {
-    public Client Client { get; set; } = client;
+    public TelegramUser Client { get; set; } = client;
 
     public async void Start()
     {
+        if (Client.CurrentLevel != Core.Enums.UserLevel.Client)
+        {
+            ProcessHandler.TerminateProcess(Client.Id);
+            return;
+        }
+
+
         List<string> problemNames = SolutionArchieve.GetNames(Client);
 
         InlineMarkup markup = new(new InlineButton("Другая проблема",
@@ -31,7 +39,7 @@ public class PrintProblemsProcess(Client client) : IProcess
                 .AddRow();
         }
 
-        markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.ClientMainMenu)));
+        markup.AddButton(new InlineButton("Назад", new CallBackPacket(Client.Id, CallBackCode.MainMenu)));
 
         await Sender.SendMessage(new TextMessage(Client.Id, "Выберите тип проблемы", markup));
     }
